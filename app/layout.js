@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react"
 import { GoogleTagManager } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
           {children}
         </main>
         <Footer />
+        <Analytics />
       </body>
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM} />
     </html>
