@@ -1,7 +1,7 @@
-import fivem from '/public/image/fivem.jpg';
-import datingApp from '/public/image/dating-app.jpg';
-import blogSite from '/public/image/blog-site.jpg';
-import weatherApp from '/public/image/weather-app.jpg';
+//import fivem from '/public/image/fivem.jpg';
+//import datingApp from '/public/image/dating-app.jpg';
+//import blogSite from '/public/image/blog-site.jpg';
+//import weatherApp from '/public/image/weather-app.jpg';
 
 export const projectsData = [
     {
