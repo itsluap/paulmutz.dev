@@ -12,7 +12,7 @@ export const projectsData = [
         role: 'Server Developer',
         code: '',
         demo: '',
-        image: fivem,
+        //image: fivem,
     },
     {
         id: 2,
@@ -22,7 +22,7 @@ export const projectsData = [
         role: 'Mobile App Developer',
         code: '',
         demo: '',
-        image: datingApp,
+        //image: datingApp,
     },
     {
         id: 3,
@@ -32,7 +32,7 @@ export const projectsData = [
         role: 'Full Stack Developer',
         code: '',
         demo: '',
-        image: blogSite,
+        //image: blogSite,
     },
     {
         id: 4,
@@ -42,6 +42,6 @@ export const projectsData = [
         role: 'Front-End Developer',
         code: '',
         demo: '',
-        image: weatherApp,
+        //image: weatherApp,
     }
 ];
