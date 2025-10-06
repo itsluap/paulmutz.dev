@@ -80,25 +80,28 @@ export default function HorizontalScroll() {
   const [activeSection, setActiveSection] = useState(0)
   const [typedText, setTypedText] = useState('')
   const typewriterText = 'I build software that ships.'
-  const [isMobileView, setIsMobileView] = useState<boolean | null>(null)
-  const [mounted, setMounted] = useState(false)
+  // Default to desktop to avoid flash, will be corrected on client
+  const [isMobileView, setIsMobileView] = useState(false)
 
   // Check if mobile on mount and conditionally render
   useEffect(() => {
-    setMounted(true)
     const checkMobile = () => {
-      setIsMobileView(isMobile())
+      const mobile = isMobile()
+      if (mobile !== isMobileView) {
+        setIsMobileView(mobile)
+      }
     }
     
+    // Check immediately
     checkMobile()
     window.addEventListener('resize', checkMobile)
     
     return () => window.removeEventListener('resize', checkMobile)
-  }, [])
+  }, [isMobileView])
 
   // Desktop horizontal scroll effect
   useEffect(() => {
-    if (isMobileView !== false) return
+    if (isMobileView) return
 
     const handleScroll = () => {
       if (!containerRef.current) return
@@ -135,7 +138,7 @@ export default function HorizontalScroll() {
 
   // Typewriter effect
   useEffect(() => {
-    if (isMobileView !== false) return
+    if (isMobileView) return
     if (activeSection !== 0) return
 
     let index = 0
@@ -151,23 +154,8 @@ export default function HorizontalScroll() {
     return () => clearInterval(interval)
   }, [activeSection, typewriterText, isMobileView])
 
-  // Wait for client-side hydration before rendering
-  if (!mounted || isMobileView === null) {
-    // Show a minimal loading state - keep it simple to not block rendering
-    return (
-      <div style={{ 
-        position: 'fixed', 
-        top: 0, 
-        left: 0, 
-        width: '100%', 
-        height: '100vh', 
-        background: '#000000'
-      }} />
-    )
-  }
-
   // Render mobile version if on mobile device
-  if (isMobileView === true) {
+  if (isMobileView) {
     return <MobilePortfolio />
   }
 

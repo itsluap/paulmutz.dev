@@ -132,47 +132,39 @@ export default function MobilePortfolio() {
       }
     }
 
-    // Add scroll listener after a slight delay to ensure DOM is ready
-    const timeout = setTimeout(() => {
-      window.addEventListener('scroll', handleScroll, { passive: true })
-    }, 100)
+    // Add scroll listener immediately
+    window.addEventListener('scroll', handleScroll, { passive: true })
     
     return () => {
-      clearTimeout(timeout)
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
-  // Intersection Observer for animations - delayed to not block scroll
+  // Intersection Observer for animations
   useEffect(() => {
-    // Delay observer setup to prioritize scrolling
-    const timeout = setTimeout(() => {
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      }
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    }
 
-      const observerCallback = (entries: IntersectionObserverEntry[]) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.visible)
-          }
-        })
-      }
-
-      const observer = new IntersectionObserver(observerCallback, observerOptions)
-
-      const sections = [heroRef.current, aboutRef.current, projectsHeaderRef.current, ...projectRefs.current, footerRef.current]
-      sections.forEach(section => {
-        if (section) {
-          observer.observe(section)
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(styles.visible)
         }
       })
+    }
 
-      return () => observer.disconnect()
-    }, 200)
+    const observer = new IntersectionObserver(observerCallback, observerOptions)
 
-    return () => clearTimeout(timeout)
+    const sections = [heroRef.current, aboutRef.current, projectsHeaderRef.current, ...projectRefs.current, footerRef.current]
+    sections.forEach(section => {
+      if (section) {
+        observer.observe(section)
+      }
+    })
+
+    return () => observer.disconnect()
   }, [])
 
   return (
