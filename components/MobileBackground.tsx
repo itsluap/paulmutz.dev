@@ -31,7 +31,7 @@ export default function MobileBackground() {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d', { alpha: true })
     if (!ctx) return
 
     // Set canvas size
@@ -42,24 +42,25 @@ export default function MobileBackground() {
     resizeCanvas()
     window.addEventListener('resize', resizeCanvas)
 
-    // Initialize particles
-    const particleCount = 40
-    const particles: Particle[] = []
+    // Initialize particles with a delay to not block initial render
+    const initTimeout = setTimeout(() => {
+      const particleCount = 40
+      const particles: Particle[] = []
 
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.5 + 0.2
-      })
-    }
-    particlesRef.current = particles
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          size: Math.random() * 2 + 1,
+          opacity: Math.random() * 0.5 + 0.2
+        })
+      }
+      particlesRef.current = particles
 
-    // Animation loop
-    const animate = () => {
+      // Animation loop
+      const animate = () => {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -103,9 +104,11 @@ export default function MobileBackground() {
       animationRef.current = requestAnimationFrame(animate)
     }
 
-    animate()
+      animate()
+    }, 300) // Delay particle animation to prioritize initial render and scroll
 
     return () => {
+      clearTimeout(initTimeout)
       window.removeEventListener('resize', resizeCanvas)
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current)

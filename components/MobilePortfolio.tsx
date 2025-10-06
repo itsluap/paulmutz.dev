@@ -96,63 +96,83 @@ export default function MobilePortfolio() {
     return () => clearInterval(interval)
   }, [])
 
-  // Scroll progress tracker
+  // Scroll progress tracker - use requestAnimationFrame for better performance
   useEffect(() => {
+    let ticking = false
+
     const handleScroll = () => {
-      const windowHeight = window.innerHeight
-      const documentHeight = document.documentElement.scrollHeight
-      const scrollTop = window.scrollY
-      const progress = (scrollTop / (documentHeight - windowHeight)) * 100
-      setScrollProgress(progress)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const windowHeight = window.innerHeight
+          const documentHeight = document.documentElement.scrollHeight
+          const scrollTop = window.scrollY
+          const progress = (scrollTop / (documentHeight - windowHeight)) * 100
+          setScrollProgress(progress)
 
-      // Determine active section
-      const sections = [
-        { id: 'hero', ref: heroRef },
-        { id: 'about', ref: aboutRef },
-        { id: 'projects', ref: projectRefs.current[0] },
-        { id: 'footer', ref: footerRef }
-      ]
+          // Determine active section
+          const sections = [
+            { id: 'hero', ref: heroRef },
+            { id: 'about', ref: aboutRef },
+            { id: 'projects', ref: projectRefs.current[0] },
+            { id: 'footer', ref: footerRef }
+          ]
 
-      for (const section of sections) {
-        if (section.ref && section.ref instanceof HTMLElement) {
-          const rect = section.ref.getBoundingClientRect()
-          if (rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2) {
-            setActiveSection(section.id)
-            break
+          for (const section of sections) {
+            if (section.ref && section.ref instanceof HTMLElement) {
+              const rect = section.ref.getBoundingClientRect()
+              if (rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2) {
+                setActiveSection(section.id)
+                break
+              }
+            }
           }
-        }
+          ticking = false
+        })
+        ticking = true
       }
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    // Add scroll listener after a slight delay to ensure DOM is ready
+    const timeout = setTimeout(() => {
+      window.addEventListener('scroll', handleScroll, { passive: true })
+    }, 100)
+    
+    return () => {
+      clearTimeout(timeout)
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
-  // Intersection Observer for animations
+  // Intersection Observer for animations - delayed to not block scroll
   useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    }
+    // Delay observer setup to prioritize scrolling
+    const timeout = setTimeout(() => {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
 
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add(styles.visible)
+      const observerCallback = (entries: IntersectionObserverEntry[]) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.visible)
+          }
+        })
+      }
+
+      const observer = new IntersectionObserver(observerCallback, observerOptions)
+
+      const sections = [heroRef.current, aboutRef.current, projectsHeaderRef.current, ...projectRefs.current, footerRef.current]
+      sections.forEach(section => {
+        if (section) {
+          observer.observe(section)
         }
       })
-    }
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions)
+      return () => observer.disconnect()
+    }, 200)
 
-    const sections = [heroRef.current, aboutRef.current, projectsHeaderRef.current, ...projectRefs.current, footerRef.current]
-    sections.forEach(section => {
-      if (section) {
-        observer.observe(section)
-      }
-    })
-
-    return () => observer.disconnect()
+    return () => clearTimeout(timeout)
   }, [])
 
   return (

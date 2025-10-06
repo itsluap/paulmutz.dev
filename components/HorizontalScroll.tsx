@@ -153,7 +153,7 @@ export default function HorizontalScroll() {
 
   // Wait for client-side hydration before rendering
   if (!mounted || isMobileView === null) {
-    // Show a minimal loading state that matches both desktop and mobile
+    // Show a minimal loading state - keep it simple to not block rendering
     return (
       <div style={{ 
         position: 'fixed', 
@@ -161,8 +161,7 @@ export default function HorizontalScroll() {
         left: 0, 
         width: '100%', 
         height: '100vh', 
-        background: '#000000',
-        zIndex: 9999
+        background: '#000000'
       }} />
     )
   }
