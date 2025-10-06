@@ -61,48 +61,48 @@ export default function MobileBackground() {
 
       // Animation loop
       const animate = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      particles.forEach((particle, i) => {
-        // Update position
-        particle.x += particle.vx
-        particle.y += particle.vy
+        particles.forEach((particle, i) => {
+          // Update position
+          particle.x += particle.vx
+          particle.y += particle.vy
 
-        // Bounce off edges
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
+          // Bounce off edges
+          if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
+          if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
 
-        // Keep within bounds
-        particle.x = Math.max(0, Math.min(canvas.width, particle.x))
-        particle.y = Math.max(0, Math.min(canvas.height, particle.y))
+          // Keep within bounds
+          particle.x = Math.max(0, Math.min(canvas.width, particle.x))
+          particle.y = Math.max(0, Math.min(canvas.height, particle.y))
 
-        // Draw particle
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(0, 212, 255, ${particle.opacity})`
-        ctx.fill()
+          // Draw particle
+          ctx.beginPath()
+          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
+          ctx.fillStyle = `rgba(0, 212, 255, ${particle.opacity})`
+          ctx.fill()
 
-        // Draw connections
-        particles.slice(i + 1).forEach((otherParticle) => {
-          const dx = particle.x - otherParticle.x
-          const dy = particle.y - otherParticle.y
-          const distance = Math.sqrt(dx * dx + dy * dy)
+          // Draw connections
+          particles.slice(i + 1).forEach((otherParticle) => {
+            const dx = particle.x - otherParticle.x
+            const dy = particle.y - otherParticle.y
+            const distance = Math.sqrt(dx * dx + dy * dy)
 
-          if (distance < 120) {
-            ctx.beginPath()
-            ctx.moveTo(particle.x, particle.y)
-            ctx.lineTo(otherParticle.x, otherParticle.y)
-            const opacity = (1 - distance / 120) * 0.2
-            ctx.strokeStyle = `rgba(0, 212, 255, ${opacity})`
-            ctx.lineWidth = 0.5
-            ctx.stroke()
-          }
+            if (distance < 120) {
+              ctx.beginPath()
+              ctx.moveTo(particle.x, particle.y)
+              ctx.lineTo(otherParticle.x, otherParticle.y)
+              const opacity = (1 - distance / 120) * 0.2
+              ctx.strokeStyle = `rgba(0, 212, 255, ${opacity})`
+              ctx.lineWidth = 0.5
+              ctx.stroke()
+            }
+          })
         })
-      })
 
-      animationRef.current = requestAnimationFrame(animate)
-    }
+        animationRef.current = requestAnimationFrame(animate)
+      }
 
       animate()
     }, 300) // Delay particle animation to prioritize initial render and scroll
