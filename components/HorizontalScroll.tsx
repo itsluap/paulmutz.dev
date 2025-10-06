@@ -3,6 +3,12 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './HorizontalScroll.module.css'
 import VantaBackground from './VantaBackground'
+import MobilePortfolio from './MobilePortfolio'
+
+const isMobile = () => {
+  if (typeof window === 'undefined') return false
+  return window.innerWidth <= 1024
+}
 
 const codeSnippets: Record<string, string> = {
   lua: `-- FiveM Server Framework
@@ -74,8 +80,24 @@ export default function HorizontalScroll() {
   const [activeSection, setActiveSection] = useState(0)
   const [typedText, setTypedText] = useState('')
   const typewriterText = 'I build software that ships.'
+  const [isMobileView, setIsMobileView] = useState<boolean | null>(null)
 
+  // Check if mobile on mount and conditionally render
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobileView(isMobile())
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Desktop horizontal scroll effect
+  useEffect(() => {
+    if (isMobileView !== false) return
+
     const handleScroll = () => {
       if (!containerRef.current) return
       
@@ -107,9 +129,11 @@ export default function HorizontalScroll() {
       window.removeEventListener('scroll', handleScroll)
       document.body.style.height = ''
     }
-  }, [])
+  }, [isMobileView])
 
+  // Typewriter effect
   useEffect(() => {
+    if (isMobileView !== false) return
     if (activeSection !== 0) return
 
     let index = 0
@@ -123,7 +147,17 @@ export default function HorizontalScroll() {
     }, 100)
     
     return () => clearInterval(interval)
-  }, [activeSection, typewriterText])
+  }, [activeSection, typewriterText, isMobileView])
+
+  // Wait for client-side hydration before rendering
+  if (isMobileView === null) {
+    return null
+  }
+
+  // Render mobile version if on mobile device
+  if (isMobileView === true) {
+    return <MobilePortfolio />
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -240,7 +274,10 @@ export default function HorizontalScroll() {
         </section>
 
         {projects.map((project, index) => (
-          <section key={index} className={styles.work}>
+          <section 
+            key={index}
+            className={styles.work}
+          >
             <div className={styles.workContent}>
               <div className={styles.projectHeader}>
                 <div className={styles.projectNumber}>{String(index + 1).padStart(2, '0')}</div>

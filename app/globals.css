@@ -80,3 +80,43 @@ a:hover {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
+/* Mobile Optimizations */
+@media (max-width: 1024px) {
+  html {
+    /* Smooth scrolling on mobile */
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-top: 0;
+  }
+
+  body {
+    /* Prevent horizontal overflow */
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  /* Better tap targets for mobile */
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Prevent text size adjustment on mobile */
+  body {
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Optimize font rendering on mobile */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
