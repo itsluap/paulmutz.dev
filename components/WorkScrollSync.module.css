@@ -1,0 +1,123 @@
+.section {
+  min-height: 200vh;
+  padding: 10rem 0;
+  position: relative;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.stickyTitle {
+  position: sticky;
+  top: 2rem;
+  margin-bottom: 4rem;
+  z-index: 1;
+}
+
+.stickyTitle h2 {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.project {
+  margin-bottom: 15rem;
+  padding: 3rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  will-change: transform, opacity, filter;
+  transition: transform 0.1s ease, opacity 0.1s ease, filter 0.1s ease;
+}
+
+.projectHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.5rem;
+  gap: 2rem;
+}
+
+.projectHeader h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.year {
+  font-size: 1rem;
+  color: var(--color-text-dim);
+  white-space: nowrap;
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.metrics span {
+  font-size: 0.95rem;
+  color: var(--color-primary);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tech span {
+  padding: 0.4rem 0.9rem;
+  background: rgba(0, 212, 255, 0.05);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.projectLink {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: var(--color-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.projectLink:hover {
+  transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 6rem 0;
+  }
+  
+  .project {
+    margin-bottom: 10rem;
+    padding: 2rem;
+  }
+  
+  .projectHeader {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

@@ -1,0 +1,81 @@
+.hero {
+  height: 200vh;
+  position: relative;
+}
+
+.content {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.name {
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 2rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  will-change: transform, opacity;
+}
+
+.title {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 300;
+  color: var(--color-primary);
+  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
+  will-change: transform, opacity;
+}
+
+.description {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  will-change: transform, opacity;
+}
+
+.description p {
+  margin: 0.5rem 0;
+}
+
+.tech {
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+.links a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-weight: 500;
+}
+
+.links a:hover {
+  color: var(--color-primary-bright);
+}
+
+.divider {
+  color: var(--color-text-dim);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 150vh;
+  }
+}
