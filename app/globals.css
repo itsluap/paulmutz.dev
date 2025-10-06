@@ -87,13 +87,17 @@ a:hover {
     /* Smooth scrolling on mobile */
     -webkit-overflow-scrolling: touch;
     scroll-padding-top: 0;
+    height: auto;
   }
 
   body {
     /* Prevent horizontal overflow */
     overflow-x: hidden;
+    overflow-y: auto;
     width: 100%;
     position: relative;
+    height: auto;
+    min-height: 100vh;
   }
 
   /* Better tap targets for mobile */

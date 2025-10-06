@@ -81,9 +81,11 @@ export default function HorizontalScroll() {
   const [typedText, setTypedText] = useState('')
   const typewriterText = 'I build software that ships.'
   const [isMobileView, setIsMobileView] = useState<boolean | null>(null)
+  const [mounted, setMounted] = useState(false)
 
   // Check if mobile on mount and conditionally render
   useEffect(() => {
+    setMounted(true)
     const checkMobile = () => {
       setIsMobileView(isMobile())
     }
@@ -150,8 +152,19 @@ export default function HorizontalScroll() {
   }, [activeSection, typewriterText, isMobileView])
 
   // Wait for client-side hydration before rendering
-  if (isMobileView === null) {
-    return null
+  if (!mounted || isMobileView === null) {
+    // Show a minimal loading state that matches both desktop and mobile
+    return (
+      <div style={{ 
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        width: '100%', 
+        height: '100vh', 
+        background: '#000000',
+        zIndex: 9999
+      }} />
+    )
   }
 
   // Render mobile version if on mobile device

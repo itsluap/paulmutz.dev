@@ -4,6 +4,7 @@
   width: 100%;
   overflow-x: hidden;
   background: transparent;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Scroll Progress Bar */
