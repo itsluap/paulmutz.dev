@@ -14,16 +14,16 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    title: 'Game Server Developer',
-    company: 'FiveM/Custom Server',
-    period: '2021 - Present',
+    title: 'Software Developer / Systems Integrator',
+    company: 'Alchemy Industrial',
+    period: '2024 - Present',
     description: [
-      'Built an entire FiveM server framework from scratch - no templates, no shortcuts',
-      'Wrote custom Lua scripts for game mechanics, economy systems, and player interactions',
-      'Created admin dashboard and management tools with Svelte because the existing ones sucked',
-      'Optimized performance to handle 100+ concurrent players without lag'
+      'Bridge software and hardware through custom Victron-based 48V energy systems',
+      'Build Node-RED, MQTT, and Python integrations to automate data flow and improve system visibility',
+      'Deploy Raspberry Pi edge solutions for local data logging, fallback operation, and Grafana monitoring',
+      'Developed 48V modular BESS prototype, Daly BMS ↔ Victron data bridge, and smart thermal control systems'
     ],
-    technologies: ['Lua', 'Svelte', 'HTML', 'CSS', 'JavaScript']
+    technologies: ['Python', 'Node-RED', 'MQTT', 'Grafana', 'InfluxDB', 'Raspberry Pi', 'Victron', 'Modbus']
   },
   {
     title: 'Web Developer',
@@ -32,10 +32,10 @@ const experiences: ExperienceItem[] = [
     description: [
       'Built full-stack web apps with React and Next.js - from idea to deployment',
       'Set up Firebase backends for auth, real-time data, and hosting',
-      'Experimented with Dart/Flutter trying to clone Tinder (learned a ton, even if it was ambitious)',
+      'Experimented with various technologies and frameworks through personal projects',
       'Shipped working products that people actually use'
     ],
-    technologies: ['React', 'Next.js', 'Firebase', 'Node.js', 'TypeScript', 'Dart']
+    technologies: ['React', 'Next.js', 'Firebase', 'Node.js', 'TypeScript']
   }
 ]
 

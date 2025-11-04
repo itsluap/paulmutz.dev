@@ -35,29 +35,31 @@ export default function AboutScrollSync() {
       <div className={styles.container}>
         <div ref={textRef} className={styles.content}>
           <p className={styles.large}>
-            I build software that works. Self-taught developer focused on creating functional applications.
+            I build software that solves real-world problems.
           </p>
           <p className={styles.text}>
-            Started with Python and Lua, building game server infrastructure from scratch. Wrote custom 
-            frameworks, scripting engines, and handled 100+ concurrent users. Moved into web development 
-            with React and Next.js. Built full-stack applications from authentication to deployment.
+            Software developer and systems integrator at Alchemy Industrial, working on custom Victron-based 
+            48V energy systems. I also build full-stack web applications and have experience with complex 
+            server infrastructure. Focus on Node-RED, MQTT, and Python for energy systems, React and Next.js 
+            for web apps, and clean code that works reliably in production.
           </p>
           <p className={styles.text}>
-            No CS degree. No bootcamp. Just documentation, Stack Overflow, building projects, and learning from mistakes.
+            Self-taught developer who learns what's needed to solve real problems. No CS degree. Just 
+            documentation, experimentation, and building solutions that actually work.
           </p>
           
           <div className={styles.skills}>
             <div className={styles.skillCategory}>
               <h3>Languages</h3>
-              <p>Python, Lua, JavaScript, TypeScript, Dart</p>
+              <p>Python, JavaScript, TypeScript, Lua</p>
             </div>
             <div className={styles.skillCategory}>
-              <h3>Frontend</h3>
-              <p>React, Next.js, Svelte, HTML/CSS</p>
+              <h3>Industrial/IoT</h3>
+              <p>Node-RED, MQTT, Victron, Grafana, Raspberry Pi</p>
             </div>
             <div className={styles.skillCategory}>
-              <h3>Backend & Tools</h3>
-              <p>Node.js, Firebase, MySQL, Git, FiveM</p>
+              <h3>Web Development</h3>
+              <p>React, Next.js, Node.js, Firebase, TypeScript</p>
             </div>
           </div>
         </div>

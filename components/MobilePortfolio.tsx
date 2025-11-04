@@ -5,19 +5,17 @@ import styles from './MobilePortfolio.module.css'
 import MobileBackground from './MobileBackground'
 
 const codeSnippets: Record<string, string> = {
-  lua: `-- FiveM Server Framework
-local Framework = {}
-Framework.Players = {}
-
-function Framework:RegisterPlayer(source, data)
-    self.Players[source] = {
-        id = source,
-        name = data.name,
-        money = data.money or 0,
-        inventory = data.inventory or {}
+  victron: `# Victron Energy Systems
+def monitor_battery_state():
+    data = {
+        'voltage': read_victron_voltage(),
+        'current': read_victron_current(),
+        'soc': calculate_soc(),
+        'temp': read_temperature()
     }
-    TriggerClientEvent('framework:playerLoaded', source)
-end`,
+    
+    mqtt_client.publish('bess/state', data)
+    optimize_charging(data)`,
   react: `// Real-time hook with Firebase
 const useRealtimeData = (path) => {
   const [data, setData] = useState(null)
@@ -32,40 +30,42 @@ const useRealtimeData = (path) => {
   
   return data
 }`,
-  python: `# Game server monitoring
-async def monitor_server_health():
-    while True:
-        players = await get_player_count()
-        cpu = psutil.cpu_percent()
-        memory = psutil.virtual_memory().percent
-        
-        if players > 100:
-            await scale_resources()
-        
-        await asyncio.sleep(5)`
+  lua: `-- FiveM Server Framework
+local Framework = {}
+Framework.Players = {}
+
+function Framework:RegisterPlayer(source, data)
+    self.Players[source] = {
+        id = source,
+        name = data.name,
+        money = data.money or 0,
+        inventory = data.inventory or {}
+    }
+    TriggerClientEvent('framework:playerLoaded', source)
+end`
 }
 
 const projects = [
   {
-    title: 'FiveM Server Framework',
-    year: '2021-2023',
-    description: 'Built custom multiplayer game server infrastructure. Developed Lua scripting framework, economy systems, and admin tools for roleplay gaming community.',
-    tech: ['Lua', 'JavaScript', 'MySQL'],
-    codeExample: 'lua'
+    title: 'Victron Energy Systems',
+    year: '2024-Present',
+    description: 'Systems integration at Alchemy Industrial. Built custom 48V energy systems, BMS bridges, thermal control, and edge monitoring with Grafana dashboards.',
+    tech: ['Python', 'Node-RED', 'MQTT', 'Victron', 'Grafana'],
+    codeExample: 'victron'
   },
   {
     title: 'Web Applications',
     year: '2020-Present',
-    description: 'Full-stack web applications using modern frameworks. Focus on responsive design, real-time features, and cloud infrastructure.',
+    description: 'Full-stack web applications using modern frameworks. Real-time features, authentication systems, and cloud infrastructure.',
     tech: ['React', 'Next.js', 'TypeScript', 'Firebase'],
     codeExample: 'react'
   },
   {
-    title: 'Learning Projects',
-    year: '2022-Present',
-    description: 'Experimental projects to explore new technologies. Built mobile apps with Flutter, automation scripts with Python, and various web tools.',
-    tech: ['Flutter', 'Python', 'Dart'],
-    codeExample: 'python'
+    title: 'FiveM Server Framework',
+    year: '2021-2023',
+    description: 'Built custom multiplayer game server infrastructure. Developed Lua scripting framework, economy systems, and admin tools.',
+    tech: ['Lua', 'JavaScript', 'Svelte', 'MySQL'],
+    codeExample: 'lua'
   }
 ]
 
@@ -73,7 +73,7 @@ export default function MobilePortfolio() {
   const [typedText, setTypedText] = useState('')
   const [scrollProgress, setScrollProgress] = useState(0)
   const [activeSection, setActiveSection] = useState('hero')
-  const typewriterText = 'I build software that ships.'
+  const typewriterText = 'I build software that solves problems.'
   
   const heroRef = useRef<HTMLElement>(null)
   const aboutRef = useRef<HTMLElement>(null)
@@ -240,8 +240,8 @@ export default function MobilePortfolio() {
         <div className={styles.aboutCard}>
           <div className={styles.cardGlow}></div>
           <div className={styles.aboutText}>
-            <p>Self-taught developer who builds software that works.</p>
-            <p>Started with Python and Lua, building game servers from scratch. Now shipping full-stack apps with React, Next.js, and Firebase.</p>
+            <p>Software Developer & Systems Integrator at Alchemy Industrial.</p>
+            <p>I bridge software and hardware through energy systems integration, build full-stack web applications, and have experience with complex server infrastructure.</p>
           </div>
         </div>
 
@@ -250,25 +250,28 @@ export default function MobilePortfolio() {
             <h3>Languages</h3>
             <div className={styles.skillTags}>
               <span>Python</span>
-              <span>Lua</span>
               <span>JavaScript</span>
               <span>TypeScript</span>
+              <span>Lua</span>
             </div>
           </div>
           <div className={styles.skillCategory}>
-            <h3>Frontend</h3>
+            <h3>Industrial/IoT</h3>
+            <div className={styles.skillTags}>
+              <span>Node-RED</span>
+              <span>MQTT</span>
+              <span>Victron</span>
+              <span>Grafana</span>
+              <span>Raspberry Pi</span>
+            </div>
+          </div>
+          <div className={styles.skillCategory}>
+            <h3>Web & Backend</h3>
             <div className={styles.skillTags}>
               <span>React</span>
               <span>Next.js</span>
-              <span>Svelte</span>
-            </div>
-          </div>
-          <div className={styles.skillCategory}>
-            <h3>Backend</h3>
-            <div className={styles.skillTags}>
               <span>Node.js</span>
               <span>Firebase</span>
-              <span>MySQL</span>
             </div>
           </div>
         </div>
@@ -306,9 +309,9 @@ export default function MobilePortfolio() {
               <div className={styles.codePreview}>
                 <div className={styles.codeHeader}>
                   <span className={styles.fileName}>
-                    {project.codeExample === 'lua' ? 'framework.lua' : 
+                    {project.codeExample === 'victron' ? 'victron_monitor.py' : 
                      project.codeExample === 'react' ? 'useRealtimeData.js' : 
-                     'monitor.py'}
+                     'framework.lua'}
                   </span>
                 </div>
                 <pre className={styles.codeBlock}>

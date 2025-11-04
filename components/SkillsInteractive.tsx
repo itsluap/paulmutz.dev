@@ -11,20 +11,20 @@ interface Skill {
 }
 
 const skills: Skill[] = [
-  { name: 'Python', level: 85, category: 'languages' },
-  { name: 'Lua', level: 90, category: 'languages' },
+  { name: 'Python', level: 90, category: 'languages' },
   { name: 'JavaScript', level: 88, category: 'languages' },
   { name: 'TypeScript', level: 82, category: 'languages' },
-  { name: 'Dart', level: 70, category: 'languages' },
+  { name: 'Lua', level: 85, category: 'languages' },
   { name: 'React', level: 85, category: 'frontend' },
   { name: 'Next.js', level: 88, category: 'frontend' },
-  { name: 'Svelte', level: 75, category: 'frontend' },
-  { name: 'CSS', level: 90, category: 'frontend' },
+  { name: 'Node-RED', level: 85, category: 'backend' },
+  { name: 'MQTT', level: 88, category: 'backend' },
   { name: 'Node.js', level: 80, category: 'backend' },
   { name: 'Firebase', level: 85, category: 'backend' },
-  { name: 'MySQL', level: 75, category: 'backend' },
-  { name: 'Git', level: 85, category: 'other' },
-  { name: 'FiveM Dev', level: 95, category: 'other' },
+  { name: 'Grafana', level: 82, category: 'other' },
+  { name: 'InfluxDB', level: 80, category: 'other' },
+  { name: 'Raspberry Pi', level: 88, category: 'other' },
+  { name: 'Victron Systems', level: 85, category: 'other' },
 ]
 
 export default function SkillsInteractive() {

@@ -3,22 +3,22 @@ import styles from './WorkClean.module.css'
 
 const work = [
   {
-    title: 'FiveM Server Framework',
-    period: '2021 - Present',
-    description: 'Built a complete multiplayer game server from scratch. Custom framework, Lua scripts, economy systems, admin tools. Handles 100+ concurrent players.',
-    tech: ['Lua', 'Svelte', 'MySQL', 'JavaScript']
+    title: 'Victron Energy Systems',
+    period: '2024 - Present',
+    description: 'Systems integration at Alchemy Industrial. Built custom 48V energy systems, BMS bridges, thermal control, and edge monitoring with Grafana dashboards.',
+    tech: ['Python', 'Node-RED', 'MQTT', 'Victron', 'Grafana', 'Raspberry Pi']
   },
   {
     title: 'Web Applications',
     period: '2020 - Present',
-    description: 'Full-stack applications using React, Next.js, and Firebase. Real-time features, authentication, databases, deployment.',
+    description: 'Full-stack applications using React, Next.js, and Firebase. Real-time features, authentication, databases, and deployment.',
     tech: ['React', 'Next.js', 'Firebase', 'TypeScript', 'Node.js']
   },
   {
-    title: 'Mobile Development',
-    period: '2022',
-    description: 'Experimented with cross-platform mobile development. Built a Tinder clone to learn Flutter and Dart.',
-    tech: ['Flutter', 'Dart', 'Firebase']
+    title: 'FiveM Server Framework',
+    period: '2021 - 2023',
+    description: 'Built a complete multiplayer game server from scratch. Custom framework, Lua scripts, economy systems, admin tools. Handles 100+ concurrent players.',
+    tech: ['Lua', 'Svelte', 'MySQL', 'JavaScript']
   }
 ]
 

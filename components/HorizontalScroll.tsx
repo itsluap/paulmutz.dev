@@ -11,19 +11,17 @@ const isMobile = () => {
 }
 
 const codeSnippets: Record<string, string> = {
-  lua: `-- FiveM Server Framework
-local Framework = {}
-Framework.Players = {}
-
-function Framework:RegisterPlayer(source, data)
-    self.Players[source] = {
-        id = source,
-        name = data.name,
-        money = data.money or 0,
-        inventory = data.inventory or {}
+  victron: `# Victron Energy Systems
+def monitor_battery_state():
+    data = {
+        'voltage': read_victron_voltage(),
+        'current': read_victron_current(),
+        'soc': calculate_soc(),
+        'temp': read_temperature()
     }
-    TriggerClientEvent('framework:playerLoaded', source)
-end`,
+    
+    mqtt_client.publish('bess/state', data)
+    optimize_charging(data)`,
   react: `// Real-time hook with Firebase
 const useRealtimeData = (path) => {
   const [data, setData] = useState(null)
@@ -38,40 +36,42 @@ const useRealtimeData = (path) => {
   
   return data
 }`,
-  python: `# Game server monitoring
-async def monitor_server_health():
-    while True:
-        players = await get_player_count()
-        cpu = psutil.cpu_percent()
-        memory = psutil.virtual_memory().percent
-        
-        if players > 100:
-            await scale_resources()
-        
-        await asyncio.sleep(5)`
+  lua: `-- FiveM Server Framework
+local Framework = {}
+Framework.Players = {}
+
+function Framework:RegisterPlayer(source, data)
+    self.Players[source] = {
+        id = source,
+        name = data.name,
+        money = data.money or 0,
+        inventory = data.inventory or {}
+    }
+    TriggerClientEvent('framework:playerLoaded', source)
+end`
 }
 
 const projects = [
   {
-    title: 'FiveM Server Framework',
-    year: '2021-2023',
-    description: 'Built custom multiplayer game server infrastructure. Developed Lua scripting framework, economy systems, and admin tools for roleplay gaming community.',
-    tech: ['Lua', 'JavaScript', 'MySQL'],
-    codeExample: 'lua'
+    title: 'Victron Energy Systems',
+    year: '2024-Present',
+    description: 'Systems integration at Alchemy Industrial. Built custom 48V energy systems, BMS bridges, thermal control, and edge monitoring with Grafana dashboards.',
+    tech: ['Python', 'Node-RED', 'MQTT', 'Victron', 'Grafana'],
+    codeExample: 'victron'
   },
   {
     title: 'Web Applications',
     year: '2020-Present',
-    description: 'Full-stack web applications using modern frameworks. Focus on responsive design, real-time features, and cloud infrastructure.',
+    description: 'Full-stack web applications using modern frameworks. Real-time features, authentication systems, and cloud infrastructure.',
     tech: ['React', 'Next.js', 'TypeScript', 'Firebase'],
     codeExample: 'react'
   },
   {
-    title: 'Learning Projects',
-    year: '2022-Present',
-    description: 'Experimental projects to explore new technologies. Built mobile apps with Flutter, automation scripts with Python, and various web tools.',
-    tech: ['Flutter', 'Python', 'Dart'],
-    codeExample: 'python'
+    title: 'FiveM Server Framework',
+    year: '2021-2023',
+    description: 'Built custom multiplayer game server infrastructure. Developed Lua scripting framework, economy systems, and admin tools.',
+    tech: ['Lua', 'JavaScript', 'Svelte', 'MySQL'],
+    codeExample: 'lua'
   }
 ]
 
@@ -79,7 +79,7 @@ export default function HorizontalScroll() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [activeSection, setActiveSection] = useState(0)
   const [typedText, setTypedText] = useState('')
-  const typewriterText = 'I build software that ships.'
+  const typewriterText = 'I build software that solves problems.'
   // Default to desktop to avoid flash, will be corrected on client
   const [isMobileView, setIsMobileView] = useState(false)
 
@@ -227,15 +227,15 @@ export default function HorizontalScroll() {
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>3</span>
-                  Self-taught developer who builds software that works.
+                  Software Developer & Systems Integrator at Alchemy Industrial.
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>4</span>
-                  Started with Python and Lua, building game servers from scratch.
+                  I bridge software and hardware, build web applications, and
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>5</span>
-                  Now shipping full-stack apps with React, Next.js, and Firebase.
+                  solve problems with code that works in production.
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>6</span>
@@ -250,19 +250,19 @@ export default function HorizontalScroll() {
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>9</span>
-                  {'  '}languages: [<span className={styles.codeString}>'Python', 'Lua', 'JavaScript', 'TypeScript'</span>],
+                  {'  '}languages: [<span className={styles.codeString}>'Python', 'JavaScript', 'TypeScript', 'Lua'</span>],
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>10</span>
-                  {'  '}frontend: [<span className={styles.codeString}>'React', 'Next.js', 'Svelte'</span>],
+                  {'  '}industrial: [<span className={styles.codeString}>'Node-RED', 'MQTT', 'Victron', 'Grafana'</span>],
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>11</span>
-                  {'  '}backend: [<span className={styles.codeString}>'Node.js', 'Firebase', 'MySQL'</span>],
+                  {'  '}web: [<span className={styles.codeString}>'React', 'Next.js', 'Firebase', 'Node.js'</span>],
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>12</span>
-                  {'  '}learning: <span className={styles.codeString}>'Always'</span>
+                  {'  '}focus: <span className={styles.codeString}>'Building solutions that work'</span>
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>13</span>
@@ -300,11 +300,11 @@ export default function HorizontalScroll() {
 
                 <div className={styles.codePreview}>
                   <div className={styles.codeHeader}>
-                    <span className={styles.fileName}>
-                      {project.codeExample === 'lua' ? 'framework.lua' : 
-                       project.codeExample === 'react' ? 'useRealtimeData.js' : 
-                       'monitor.py'}
-                    </span>
+                  <span className={styles.fileName}>
+                    {project.codeExample === 'victron' ? 'victron_monitor.py' : 
+                     project.codeExample === 'react' ? 'useRealtimeData.js' : 
+                     'framework.lua'}
+                  </span>
                   </div>
                   <pre className={styles.codeBlock}>
                     <code>{codeSnippets[project.codeExample]}</code>

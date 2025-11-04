@@ -56,17 +56,20 @@ export default function About() {
           <h2 className={styles.title}>About Me</h2>
           <div className={styles.content}>
             <p className={styles.text}>
-              I'm a developer who loves building things that work. Started with Python and Lua, 
-              building everything from FiveM game servers to custom frameworks. Somewhere along the way, 
-              I picked up React, Next.js, and a bunch of other tools that help me ship working software.
+              I'm a software developer and systems integrator at Alchemy Industrial, where I bridge 
+              software and hardware through custom Victron-based 48V energy systems. I also build 
+              full-stack web applications and have experience with game server development.
             </p>
             <p className={styles.text}>
-              My approach? Learn what's needed, build it right, and make it work. Whether it's architecting 
-              a game server from scratch or spinning up a modern web app with Firebase, I focus on solving 
-              real problems with code that actually does what it's supposed to do.
+              At Alchemy, I work with Node-RED, MQTT, and Python to automate data flow and improve 
+              system visibility. I build Raspberry Pi edge deployments, Grafana dashboards for monitoring, 
+              and custom bridges between hardware systems. Outside of that, I build modern web apps with 
+              React, Next.js, and Firebase.
             </p>
             <p className={styles.text}>
-              Still learning, still building, always figuring out the next challenge.
+              Self-taught developer who learns what's needed to solve real-world problems. Whether it's 
+              energy systems integration, web applications, or complex server infrastructure, I focus on 
+              building solutions that actually work in production.
             </p>
             <div className={styles.highlights}>
               <div className={styles.highlight}>

@@ -5,25 +5,25 @@ import styles from './WorkHorizontal.module.css'
 
 const projects = [
   {
-    title: 'FiveM Server Framework',
-    year: '2021-Present',
-    description: 'Built an entire multiplayer game server from scratch. Custom framework, Lua scripting engine, economy systems, and admin tools. Supports 100+ concurrent players.',
-    tech: ['Lua', 'Svelte', 'MySQL', 'JavaScript'],
-    metrics: ['100+ players', '50k+ lines', '30+ scripts'],
+    title: 'Victron Energy Systems',
+    year: '2024-Present',
+    description: 'Systems integration at Alchemy Industrial. Built custom 48V energy systems, BMS bridges, thermal control, and edge monitoring with Grafana dashboards.',
+    tech: ['Python', 'Node-RED', 'MQTT', 'Victron', 'Grafana'],
+    metrics: ['48V systems', '5+ deployments', '99.9% uptime'],
   },
   {
     title: 'Web Applications',
     year: '2020-Present',
-    description: 'Full-stack applications using modern web technologies. Real-time features, authentication systems, cloud databases, and production deployments.',
+    description: 'Full-stack applications using modern frameworks. Real-time features, authentication systems, cloud databases, and production deployments.',
     tech: ['React', 'Next.js', 'Firebase', 'TypeScript', 'Node.js'],
     metrics: ['10+ projects', 'Real-time data', 'Production'],
   },
   {
-    title: 'Mobile Development',
-    year: '2022',
-    description: 'Cross-platform mobile development experiments. Built a dating app clone to learn Flutter and Dart.',
-    tech: ['Flutter', 'Dart', 'Firebase'],
-    metrics: ['iOS + Android', 'Cross-platform', 'Firebase backend'],
+    title: 'FiveM Server Framework',
+    year: '2021-2023',
+    description: 'Built an entire multiplayer game server from scratch. Custom framework, Lua scripting engine, economy systems, and admin tools. Supports 100+ concurrent players.',
+    tech: ['Lua', 'Svelte', 'MySQL', 'JavaScript'],
+    metrics: ['100+ players', '50k+ lines', '30+ scripts'],
   }
 ]
 

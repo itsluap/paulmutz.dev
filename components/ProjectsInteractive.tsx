@@ -14,30 +14,30 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: 'FiveM Server Framework',
-    description: 'Built an entire multiplayer game server ecosystem from the ground up. Custom framework, scripts, economy, admin tools - everything.',
-    technologies: ['Lua', 'Svelte', 'JavaScript', 'HTML/CSS', 'MySQL'],
+    title: 'Victron Energy Systems Integration',
+    description: 'Systems integration work at Alchemy Industrial. Built custom 48V energy systems with Node-RED, MQTT, and Python for off-grid and industrial applications.',
+    technologies: ['Python', 'Node-RED', 'MQTT', 'Victron', 'Grafana', 'Raspberry Pi'],
     highlights: [
-      'Custom resource loading system that actually works',
-      'Built admin panel from scratch (existing ones were terrible)',
-      'Complex player economy with trading, inventory, and persistence',
-      'Handles 100+ players simultaneously without breaking'
+      '48V modular BESS prototype with real-time monitoring',
+      'Daly BMS ↔ Victron data bridge for protocol translation',
+      'Smart thermal control system for battery enclosures',
+      'Raspberry Pi edge deployments with Grafana dashboards'
     ],
     stats: [
-      { label: 'Lines of Code', value: '50k+' },
-      { label: 'Concurrent Players', value: '100+' },
-      { label: 'Custom Scripts', value: '30+' }
+      { label: 'Systems', value: '48V' },
+      { label: 'Deployments', value: '5+' },
+      { label: 'Uptime', value: '99.9%' }
     ]
   },
   {
-    title: 'Modern Web Apps',
-    description: 'Full-stack applications built with React/Next.js and Firebase. From authentication to deployment, built to actually ship.',
-    technologies: ['React', 'Next.js', 'Firebase', 'Node.js', 'TypeScript'],
+    title: 'Full-Stack Web Applications',
+    description: 'Modern web applications built with React and Next.js. From authentication to deployment, focused on shipping products that work.',
+    technologies: ['React', 'Next.js', 'TypeScript', 'Firebase', 'Node.js'],
     highlights: [
       'Real-time data sync with Firebase Firestore',
-      'Auth that doesn\'t suck (Google, email, password reset)',
-      'Mobile-responsive because people use phones',
-      'Deployed on Vercel/Firebase Hosting and ready for users'
+      'Authentication systems and user management',
+      'Mobile-responsive design and UX',
+      'Deployed on Vercel/Firebase and production-ready'
     ],
     stats: [
       { label: 'Apps Built', value: '10+' },
@@ -46,19 +46,19 @@ const projects: Project[] = [
     ]
   },
   {
-    title: 'Tinder Clone Experiment',
-    description: 'Tried building a Tinder clone with Flutter and Dart. Ambitious? Yes. Learned a ton? Absolutely.',
-    technologies: ['Dart', 'Flutter', 'Firebase'],
+    title: 'FiveM Server Framework',
+    description: 'Built an entire multiplayer game server ecosystem from the ground up. Custom framework, scripts, economy, admin tools - everything.',
+    technologies: ['Lua', 'Svelte', 'JavaScript', 'MySQL'],
     highlights: [
-      'Swipe mechanics and gesture recognition',
-      'Real-time matching algorithm',
-      'Cross-platform (iOS & Android from one codebase)',
-      'Learned that dating app UX is harder than it looks'
+      'Custom resource loading system that actually works',
+      'Built admin panel from scratch',
+      'Complex player economy with trading and persistence',
+      'Handles 100+ players simultaneously without breaking'
     ],
     stats: [
-      { label: 'Platforms', value: '2' },
-      { label: 'Features', value: '15+' },
-      { label: 'Lessons Learned', value: '∞' }
+      { label: 'Lines of Code', value: '50k+' },
+      { label: 'Concurrent Players', value: '100+' },
+      { label: 'Custom Scripts', value: '30+' }
     ]
   }
 ]

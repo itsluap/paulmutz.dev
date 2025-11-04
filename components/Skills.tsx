@@ -12,19 +12,19 @@ interface SkillCategory {
 const skillCategories: SkillCategory[] = [
   {
     category: 'Languages',
-    skills: ['Python', 'Lua', 'JavaScript', 'TypeScript', 'Dart']
+    skills: ['Python', 'JavaScript', 'TypeScript', 'Lua']
   },
   {
-    category: 'Frontend',
-    skills: ['React', 'Next.js', 'Svelte', 'HTML', 'CSS']
+    category: 'Industrial/IoT',
+    skills: ['Node-RED', 'MQTT', 'Modbus', 'Victron VE.Direct', 'Raspberry Pi', 'GPIO']
   },
   {
-    category: 'Backend',
-    skills: ['Node.js', 'Firebase', 'REST APIs', 'Database Design']
+    category: 'Monitoring & Data',
+    skills: ['Grafana', 'InfluxDB', 'Real-time Data Logging', 'System Automation']
   },
   {
-    category: 'Tools & Other',
-    skills: ['Git', 'FiveM Development', 'Game Server Architecture', 'Performance Optimization']
+    category: 'Web Development',
+    skills: ['React', 'Next.js', 'Node.js', 'Firebase', 'REST APIs']
   }
 ]
 
