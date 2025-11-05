@@ -54,6 +54,7 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
   font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  touch-action: pan-y pan-x;
 }
 
 a {
@@ -87,7 +88,8 @@ a:hover {
     /* Smooth scrolling on mobile */
     -webkit-overflow-scrolling: touch;
     scroll-padding-top: 0;
-    height: auto;
+    height: auto !important;
+    overflow-y: auto;
   }
 
   body {
@@ -96,8 +98,9 @@ a:hover {
     overflow-y: auto;
     width: 100%;
     position: relative;
-    height: auto;
+    height: auto !important;
     min-height: 100vh;
+    touch-action: pan-y;
   }
 
   /* Better tap targets for mobile */

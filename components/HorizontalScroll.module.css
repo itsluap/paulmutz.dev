@@ -510,9 +510,11 @@
 @media (max-width: 1024px) {
   /* Base Layout */
   .wrapper {
-    position: static;
-    height: auto;
-    overflow-x: hidden;
+    position: static !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+    touch-action: pan-y !important;
   }
   
   .container {

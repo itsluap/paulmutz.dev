@@ -80,8 +80,13 @@ export default function HorizontalScroll() {
   const [activeSection, setActiveSection] = useState(0)
   const [typedText, setTypedText] = useState('')
   const typewriterText = 'I build software that solves problems.'
-  // Default to desktop to avoid flash, will be corrected on client
-  const [isMobileView, setIsMobileView] = useState(false)
+  // Check mobile immediately to prevent any desktop logic from running
+  const [isMobileView, setIsMobileView] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth <= 1024
+    }
+    return false
+  })
 
   // Check if mobile on mount and conditionally render
   useEffect(() => {
@@ -92,7 +97,7 @@ export default function HorizontalScroll() {
       }
     }
     
-    // Check immediately
+    // Check immediately on mount in case initial state was wrong
     checkMobile()
     window.addEventListener('resize', checkMobile)
     
@@ -101,7 +106,8 @@ export default function HorizontalScroll() {
 
   // Desktop horizontal scroll effect
   useEffect(() => {
-    if (isMobileView) return
+    // Extra safety check - never run on mobile
+    if (isMobileView || window.innerWidth <= 1024) return
 
     const handleScroll = () => {
       if (!containerRef.current) return
@@ -122,7 +128,8 @@ export default function HorizontalScroll() {
       containerRef.current.style.transform = `translateX(${translateX}px)`
     }
 
-    if (containerRef.current) {
+    // Only set body height on desktop
+    if (containerRef.current && window.innerWidth > 1024) {
       const containerWidth = containerRef.current.scrollWidth
       document.body.style.height = `${containerWidth}px`
     }
@@ -132,7 +139,10 @@ export default function HorizontalScroll() {
     
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      document.body.style.height = ''
+      // Always clean up body height
+      if (document.body.style.height) {
+        document.body.style.height = ''
+      }
     }
   }, [isMobileView])
 
