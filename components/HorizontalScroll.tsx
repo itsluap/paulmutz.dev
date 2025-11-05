@@ -200,7 +200,7 @@ export default function HorizontalScroll() {
                 <p className={styles.terminalLine}>
                   <span className={styles.prompt}>$</span> cat role.txt
                 </p>
-                <div className={styles.title}>Developer</div>
+                <div className={styles.title}>Developer & Systems Integrator</div>
                 <p className={styles.terminalLine}>
                   <span className={styles.prompt}>$</span> echo $MISSION
                 </p>
