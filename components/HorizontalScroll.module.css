@@ -1,3 +1,22 @@
+/* Mobile/Desktop visibility controls */
+.mobileOnly {
+  display: none;
+}
+
+.desktopOnly {
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .mobileOnly {
+    display: block;
+  }
+  
+  .desktopOnly {
+    display: none !important;
+  }
+}
+
 .wrapper {
   position: fixed;
   top: 0;
@@ -512,9 +531,7 @@
   .wrapper {
     position: static !important;
     height: auto !important;
-    overflow-x: hidden !important;
-    overflow-y: visible !important;
-    touch-action: pan-y !important;
+    overflow: visible !important;
   }
   
   .container {

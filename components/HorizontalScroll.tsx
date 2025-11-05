@@ -164,15 +164,16 @@ export default function HorizontalScroll() {
     return () => clearInterval(interval)
   }, [activeSection, typewriterText, isMobileView])
 
-  // Render mobile version if on mobile device
-  if (isMobileView) {
-    return <MobilePortfolio />
-  }
-
+  // Always render mobile portfolio, but hide with CSS on desktop for SSR compatibility
   return (
-    <div className={styles.wrapper}>
-      <VantaBackground />
-      <div className={styles.indicators}>
+    <>
+      <div className={styles.mobileOnly}>
+        <MobilePortfolio />
+      </div>
+      <div className={styles.desktopOnly}>
+        <div className={styles.wrapper}>
+          <VantaBackground />
+          <div className={styles.indicators}>
         {[0, 1, 2, 3, 4, 5].map((i) => (
           <div key={i} className={`${styles.indicator} ${activeSection === i ? styles.active : ''}`}>
             <span className={styles.indicatorDot} />
@@ -342,7 +343,9 @@ export default function HorizontalScroll() {
           </div>
         </section>
 
+        </div>
       </div>
-    </div>
+      </div>
+    </>
   )
 }
