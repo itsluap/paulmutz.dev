@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import styles from './MobilePortfolio.module.css'
 import MobileBackground from './MobileBackground'
 
@@ -195,6 +196,15 @@ export default function MobilePortfolio() {
               <span className={styles.terminalTitle}>terminal</span>
             </div>
             <div className={styles.terminalBody}>
+              <div className={styles.headshotWrapper}>
+                <Image
+                  src="/paul_headshot.PNG"
+                  alt="Paul Mutz"
+                  width={80}
+                  height={80}
+                  className={styles.headshot}
+                />
+              </div>
               <p className={styles.terminalLine}>
                 <span className={styles.prompt}>$</span> echo $MISSION
               </p>
@@ -305,6 +315,24 @@ export default function MobilePortfolio() {
                   <span key={tech} className={styles.techTag}>{tech}</span>
                 ))}
               </div>
+
+              {index === 0 && (
+                <a
+                  href="https://professional.victronenergy.com/app/software-integrators-program"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.credential}
+                >
+                  <Image
+                    src="/integrator-program.png"
+                    alt="Victron Energy Software Integrator Program"
+                    width={280}
+                    height={100}
+                    className={styles.credentialLogo}
+                  />
+                  <div className={styles.credentialLabel}>Recommended Integrator</div>
+                </a>
+              )}
 
               <div className={styles.codePreview}>
                 <div className={styles.codeHeader}>

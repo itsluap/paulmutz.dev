@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import styles from './HorizontalScroll.module.css'
 import VantaBackground from './VantaBackground'
 import MobilePortfolio from './MobilePortfolio'
@@ -196,7 +197,16 @@ export default function HorizontalScroll() {
                 <p className={styles.terminalLine}>
                   <span className={styles.prompt}>$</span> whoami
                 </p>
-                <h1 className={styles.name}>Paul Mutz</h1>
+                <div className={styles.whoamiOutput}>
+                  <Image
+                    src="/paul_headshot.PNG"
+                    alt="Paul Mutz"
+                    width={100}
+                    height={100}
+                    className={styles.headshot}
+                  />
+                  <h1 className={styles.name}>Paul Mutz</h1>
+                </div>
                 <p className={styles.terminalLine}>
                   <span className={styles.prompt}>$</span> cat role.txt
                 </p>
@@ -285,7 +295,7 @@ export default function HorizontalScroll() {
         </section>
 
         {projects.map((project, index) => (
-          <section 
+          <section
             key={index}
             className={styles.work}
           >
@@ -297,23 +307,41 @@ export default function HorizontalScroll() {
                   <span className={styles.year}>{project.year}</span>
                 </div>
               </div>
-              
+
               <div className={styles.projectGrid}>
                 <div className={styles.projectInfo}>
                   <p className={styles.projectDescription}>{project.description}</p>
-                  
+
                   <div className={styles.techStack}>
                     {project.tech.map((t) => (
                       <span key={t} className={styles.techTag}>{t}</span>
                     ))}
                   </div>
+
+                  {index === 0 && (
+                    <a
+                      href="https://professional.victronenergy.com/app/software-integrators-program"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.credential}
+                    >
+                      <Image
+                        src="/integrator-program.png"
+                        alt="Victron Energy Software Integrator Program"
+                        width={300}
+                        height={107}
+                        className={styles.credentialLogo}
+                      />
+                      <div className={styles.credentialLabel}>Recommended Integrator</div>
+                    </a>
+                  )}
                 </div>
 
                 <div className={styles.codePreview}>
                   <div className={styles.codeHeader}>
                   <span className={styles.fileName}>
-                    {project.codeExample === 'victron' ? 'victron_monitor.py' : 
-                     project.codeExample === 'react' ? 'useRealtimeData.js' : 
+                    {project.codeExample === 'victron' ? 'victron_monitor.py' :
+                     project.codeExample === 'react' ? 'useRealtimeData.js' :
                      'framework.lua'}
                   </span>
                   </div>

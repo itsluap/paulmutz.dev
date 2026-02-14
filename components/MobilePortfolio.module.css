@@ -149,6 +149,22 @@
   padding: 1.5rem;
 }
 
+.headshotWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.headshot {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 15%;
+  border: 2px solid rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
 .terminalLine {
   margin-bottom: 0.5rem;
   color: var(--color-text-secondary);
@@ -423,6 +439,35 @@
   font-weight: 500;
 }
 
+/* Credential */
+.credential {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.credential:active {
+  opacity: 0.7;
+}
+
+.credentialLogo {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+.credentialLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
 .codePreview {
   background: rgba(10, 10, 10, 0.8);
   border: 1px solid rgba(0, 212, 255, 0.2);
@@ -532,6 +577,11 @@
 
 /* Small Mobile Devices */
 @media (max-width: 480px) {
+  .headshot {
+    width: 64px;
+    height: 64px;
+  }
+
   .name {
     font-size: 2.5rem;
   }
