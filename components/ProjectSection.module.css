@@ -1,0 +1,288 @@
+/* ─── Base ─── */
+.section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Terminal Frame ─── */
+.terminal {
+  background: rgba(17, 17, 17, 0.95);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  overflow: hidden;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+}
+
+.terminalHeader {
+  background: var(--color-bg-elevated);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dots span:nth-child(1) { background: #ff5f56; }
+.dots span:nth-child(2) { background: #ffbd2e; }
+.dots span:nth-child(3) { background: #27c93f; }
+
+.terminalPath {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+/* ─── Terminal Body ─── */
+.terminalBody {
+  padding: 2rem 2.5rem;
+}
+
+/* Command line */
+.commandLine {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+.prompt {
+  color: var(--color-primary);
+  margin-right: 0.5rem;
+}
+
+/* Title row */
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.08em;
+}
+
+.year {
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+/* Logo title row (Victron project) */
+.logoTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.logos {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.alchemyLogo {
+  width: 160px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+
+.victronLogo {
+  width: 240px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+
+.logoSep {
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin-bottom: 1.5rem;
+}
+
+/* Description */
+.description {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.25rem;
+  max-width: 640px;
+}
+
+/* Tech meta */
+.meta {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+/* Links */
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+  width: fit-content;
+}
+
+.link:hover {
+  color: var(--color-primary-bright);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Credential label */
+.credentialLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  opacity: 0.7;
+}
+
+/* Code section */
+.codeDivider {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 0.8rem;
+}
+
+.codeFileName {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.codeBlock {
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  overflow: hidden;
+  max-height: 220px;
+  mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+}
+
+/* ─── Desktop ─── */
+.desktop .terminal {
+  max-width: 800px;
+  border-radius: 8px;
+}
+
+.desktop .terminalBody {
+  padding: 2.5rem 3rem;
+}
+
+.desktop .title {
+  font-size: 2rem;
+}
+
+.desktop .description {
+  font-size: 1.15rem;
+}
+
+/* ─── Mobile ─── */
+.mobile .terminal {
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 212, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.mobile .terminalBody {
+  padding: 1.5rem;
+}
+
+.mobile .title {
+  font-size: 1.35rem;
+  letter-spacing: 0.05em;
+}
+
+.mobile .titleRow {
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mobile .description {
+  font-size: 1rem;
+}
+
+.mobile .codeBlock {
+  font-size: 0.72rem;
+  max-height: 160px;
+}
+
+.mobile .dots span {
+  width: 9px;
+  height: 9px;
+}
+
+.mobile .logoTitleRow {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.mobile .logos {
+  gap: 0.75rem;
+}
+
+.mobile .alchemyLogo {
+  width: 120px;
+}
+
+.mobile .victronLogo {
+  width: 180px;
+}
+
+@media (max-width: 480px) {
+  .mobile .terminalBody {
+    padding: 1.25rem;
+  }
+
+  .mobile .title {
+    font-size: 1.2rem;
+  }
+
+  .mobile .commandLine {
+    font-size: 0.75rem;
+    word-break: break-all;
+  }
+}

@@ -172,6 +172,19 @@
   color: var(--color-primary);
 }
 
+.terminalLink {
+  color: var(--color-primary-bright);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(0, 212, 255, 0.4);
+  cursor: pointer;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.terminalLink:hover {
+  text-decoration-color: var(--color-primary-bright);
+}
+
 /* Input line */
 .inputLine {
   display: flex;

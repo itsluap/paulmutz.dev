@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback, type ReactNode, type KeyboardEvent } from 'react'
 import styles from './InteractiveTerminal.module.css'
-import { projects, terminalContent, siteLinks } from '../data/portfolio'
+import { projects, codeSnippets, terminalContent, siteLinks } from '../data/portfolio'
 
 interface TerminalLine {
   type: 'command' | 'output'
@@ -22,8 +22,15 @@ const COMMANDS: Record<string, { description: string }> = {
   'cat about.txt':     { description: 'About me' },
   'cat education.txt': { description: 'My education' },
   'ls projects/':      { description: 'List projects' },
+  'open <project>':    { description: 'View project details + code' },
   'sudo hire paul':    { description: '???' },
   clear:    { description: 'Clear terminal' },
+}
+
+const PROJECT_KEYS: Record<string, number> = {
+  victron: 0, 'victron energy': 0, 'victron energy systems': 0, energy: 0,
+  web: 1, 'web apps': 1, 'web applications': 1,
+  fivem: 2, 'fivem server': 2, 'fivem server framework': 2, luap: 2, indigo: 2,
 }
 
 function processCommand(input: string): string {
@@ -53,10 +60,39 @@ function processCommand(input: string): string {
   }
 
   if (lower === 'ls projects/' || lower === 'ls projects') {
-    const lines = projects.map((p) =>
-      `drwxr-xr-x  ${p.year.padEnd(14)} ${p.title}`
-    )
+    const lines = [
+      ...projects.map((p) =>
+        `drwxr-xr-x  ${p.year.padEnd(14)} ${p.title}`
+      ),
+      '',
+      "Try 'open victron', 'open web', or 'open fivem' for details."
+    ]
     return lines.join('\n')
+  }
+
+  if (lower.startsWith('open ')) {
+    const query = lower.slice(5).trim()
+    const idx = PROJECT_KEYS[query]
+    if (idx !== undefined) {
+      const p = projects[idx]
+      const code = codeSnippets[p.codeExample]
+      const lines = [
+        `── ${p.title} (${p.year}) ──`,
+        '',
+        p.description,
+        '',
+        `Tech: ${p.tech.join(', ')}`,
+      ]
+      if (p.links && p.links.length > 0) {
+        lines.push('')
+        p.links.forEach(l => lines.push(`  [[${l.label}||${l.url}]]`))
+      }
+      lines.push('')
+      lines.push('─── code ───')
+      lines.push(code)
+      return lines.join('\n')
+    }
+    return `open: '${query}' not found. Try 'open victron', 'open web', or 'open fivem'.`
   }
 
   if (lower === 'cat about.txt') {
@@ -300,6 +336,31 @@ export default function InteractiveTerminal({ variant, headshotSlot }: Interacti
     return lines.map((line, i) => {
       const cleaned = line.replace(/\x1b\[\d+m/g, '')
       const isCyan = line.includes('\x1b[36m')
+
+      // Clickable links: [[label||url]]
+      const linkMatch = cleaned.match(/\[\[(.+?)\|\|(.+?)\]\]/)
+      if (linkMatch) {
+        const before = cleaned.slice(0, linkMatch.index)
+        return (
+          <div key={i}>
+            {before}
+            <a
+              href={linkMatch[2]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.terminalLink}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {linkMatch[1]} ↗
+            </a>
+          </div>
+        )
+      }
+
+      // Section headers (── text ──)
+      if (cleaned.startsWith('──') || cleaned.startsWith('───')) {
+        return <div key={i} className={styles.cyanText}>{cleaned}</div>
+      }
 
       if (isCyan || (i < 6 && content.includes('____'))) {
         return <div key={i} className={styles.cyanText}>{cleaned}</div>

@@ -5,7 +5,8 @@ import Image from 'next/image'
 import styles from './MobilePortfolio.module.css'
 import MobileBackground from './MobileBackground'
 import InteractiveTerminal from './InteractiveTerminal'
-import { codeSnippets, projects, siteLinks } from '../data/portfolio'
+import ProjectSection from './ProjectSection'
+import { projects, siteLinks } from '../data/portfolio'
 
 export default function MobilePortfolio() {
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -120,25 +121,13 @@ export default function MobilePortfolio() {
 
           <div className={styles.links}>
             <a href={siteLinks.github} target="_blank" rel="noopener noreferrer" className={styles.linkCard}>
-              <span className={styles.linkIcon}>&lt;/&gt;</span>
-              <div>
-                <div className={styles.linkTitle}>GitHub</div>
-                <div className={styles.linkDesc}>View my code</div>
-              </div>
+              <span className={styles.linkIcon}>&lt;/&gt;</span> GitHub
             </a>
             <a href={siteLinks.linkedin} target="_blank" rel="noopener noreferrer" className={styles.linkCard}>
-              <span className={styles.linkIcon}>in</span>
-              <div>
-                <div className={styles.linkTitle}>LinkedIn</div>
-                <div className={styles.linkDesc}>Connect with me</div>
-              </div>
+              <span className={styles.linkIcon}>in</span> LinkedIn
             </a>
             <a href={`mailto:${siteLinks.email}`} className={styles.linkCard}>
-              <span className={styles.linkIcon}>@</span>
-              <div>
-                <div className={styles.linkTitle}>Email</div>
-                <div className={styles.linkDesc}>Get in touch</div>
-              </div>
+              <span className={styles.linkIcon}>@</span> Email
             </a>
           </div>
         </div>
@@ -198,10 +187,10 @@ export default function MobilePortfolio() {
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* Projects */}
       <div className={styles.projectsWrapper}>
-        <div ref={projectsHeaderRef} className={`${styles.sectionHeader} ${styles.animate}`}>
-          <h2>Projects</h2>
+        <div ref={projectsHeaderRef} className={`${styles.projectsLabel} ${styles.animate}`}>
+          Work
         </div>
 
         {projects.map((project, index) => (
@@ -210,54 +199,7 @@ export default function MobilePortfolio() {
             ref={(el) => { projectRefs.current[index] = el }}
             className={`${styles.project} ${styles.animate}`}
           >
-            <div className={styles.projectCard}>
-              <div className={styles.projectHeader}>
-                <span className={styles.projectNumber}>{String(index + 1).padStart(2, '0')}</span>
-                <div>
-                  <h3>{project.title}</h3>
-                  <span className={styles.projectYear}>{project.year}</span>
-                </div>
-              </div>
-
-              <p className={styles.projectDescription}>{project.description}</p>
-
-              <div className={styles.techStack}>
-                {project.tech.map((tech) => (
-                  <span key={tech} className={styles.techTag}>{tech}</span>
-                ))}
-              </div>
-
-              {index === 0 && (
-                <a
-                  href="https://professional.victronenergy.com/app/software-integrators-program"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.credential}
-                >
-                  <Image
-                    src="/integrator-program.png"
-                    alt="Victron Energy Software Integrator Program"
-                    width={280}
-                    height={100}
-                    className={styles.credentialLogo}
-                  />
-                  <div className={styles.credentialLabel}>Recommended Integrator</div>
-                </a>
-              )}
-
-              <div className={styles.codePreview}>
-                <div className={styles.codeHeader}>
-                  <span className={styles.fileName}>
-                    {project.codeExample === 'victron' ? 'victron_monitor.py' :
-                     project.codeExample === 'react' ? 'useRealtimeData.js' :
-                     'framework.lua'}
-                  </span>
-                </div>
-                <pre className={styles.codeBlock}>
-                  <code>{codeSnippets[project.codeExample]}</code>
-                </pre>
-              </div>
-            </div>
+            <ProjectSection project={project} index={index} variant="mobile" />
           </section>
         ))}
       </div>

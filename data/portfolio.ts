@@ -4,6 +4,7 @@ export interface Project {
   description: string
   tech: string[]
   codeExample: string
+  links?: { label: string; url: string }[]
 }
 
 export const codeSnippets: Record<string, string> = {
@@ -58,16 +59,24 @@ export const projects: Project[] = [
   {
     title: 'Web Applications',
     year: '2020-Present',
-    description: 'Full-stack web applications using modern frameworks. Real-time features, authentication systems, and cloud infrastructure.',
+    description: 'A mix of everything — built the Alchemy Industrial website and shop, personal projects, tools for friends, and a few business ideas that taught me more than they made. Each one sharpened the stack.',
     tech: ['React', 'Next.js', 'TypeScript', 'Firebase'],
-    codeExample: 'react'
+    codeExample: 'react',
+    links: [
+      { label: 'Alchemy Industrial', url: 'https://alchemyindustrial.com' },
+      { label: 'Alchemy Shop', url: 'https://shop.alchemyindustrial.com' }
+    ]
   },
   {
     title: 'FiveM Server Framework',
     year: '2021-2023',
     description: 'Built custom multiplayer game server infrastructure. Developed Lua scripting framework, economy systems, and admin tools.',
     tech: ['Lua', 'JavaScript', 'Svelte', 'MySQL'],
-    codeExample: 'lua'
+    codeExample: 'lua',
+    links: [
+      { label: 'GitHub', url: 'https://github.com/itsluap/luap-server' },
+      { label: 'Live Site', url: 'https://indigorp.net' }
+    ]
   }
 ]
 

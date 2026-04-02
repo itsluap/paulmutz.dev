@@ -6,6 +6,7 @@ import styles from './HorizontalScroll.module.css'
 import VantaBackground from './VantaBackground'
 import MobilePortfolio from './MobilePortfolio'
 import InteractiveTerminal from './InteractiveTerminal'
+import ProjectSection from './ProjectSection'
 import { codeSnippets, projects, siteLinks } from '../data/portfolio'
 
 const isMobile = () => {
@@ -185,62 +186,8 @@ export default function HorizontalScroll() {
         </section>
 
         {projects.map((project, index) => (
-          <section
-            key={index}
-            className={styles.work}
-          >
-            <div className={styles.workContent}>
-              <div className={styles.projectHeader}>
-                <div className={styles.projectNumber}>{String(index + 1).padStart(2, '0')}</div>
-                <div>
-                  <h3>{project.title}</h3>
-                  <span className={styles.year}>{project.year}</span>
-                </div>
-              </div>
-
-              <div className={styles.projectGrid}>
-                <div className={styles.projectInfo}>
-                  <p className={styles.projectDescription}>{project.description}</p>
-
-                  <div className={styles.techStack}>
-                    {project.tech.map((t) => (
-                      <span key={t} className={styles.techTag}>{t}</span>
-                    ))}
-                  </div>
-
-                  {index === 0 && (
-                    <a
-                      href="https://professional.victronenergy.com/app/software-integrators-program"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.credential}
-                    >
-                      <Image
-                        src="/integrator-program.png"
-                        alt="Victron Energy Software Integrator Program"
-                        width={300}
-                        height={107}
-                        className={styles.credentialLogo}
-                      />
-                      <div className={styles.credentialLabel}>Recommended Integrator</div>
-                    </a>
-                  )}
-                </div>
-
-                <div className={styles.codePreview}>
-                  <div className={styles.codeHeader}>
-                  <span className={styles.fileName}>
-                    {project.codeExample === 'victron' ? 'victron_monitor.py' :
-                     project.codeExample === 'react' ? 'useRealtimeData.js' :
-                     'framework.lua'}
-                  </span>
-                  </div>
-                  <pre className={styles.codeBlock}>
-                    <code>{codeSnippets[project.codeExample]}</code>
-                  </pre>
-                </div>
-              </div>
-            </div>
+          <section key={index} className={styles.work}>
+            <ProjectSection project={project} index={index} variant="desktop" />
           </section>
         ))}
 
