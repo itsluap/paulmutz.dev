@@ -102,11 +102,6 @@ export default function MobilePortfolio() {
       {/* Hero Section */}
       <section ref={heroRef} className={`${styles.hero} ${styles.animate}`}>
         <div className={styles.heroContent}>
-          <div className={styles.heroTitle}>
-            <h1 className={styles.name}>Paul Mutz</h1>
-            <div className={styles.role}>Developer</div>
-          </div>
-
           <InteractiveTerminal
             variant="mobile"
             headshotSlot={

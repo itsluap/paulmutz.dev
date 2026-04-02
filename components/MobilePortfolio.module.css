@@ -58,40 +58,7 @@
   z-index: 1;
 }
 
-.heroTitle {
-  text-align: center;
-  margin-bottom: 2rem;
-  animation: slideDown 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  opacity: 0;
-}
-
-@keyframes slideDown {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-}
-
-.name {
-  font-size: 3rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--color-primary-bright), var(--color-primary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
-}
-
-.role {
-  font-size: 1.5rem;
-  color: var(--color-text-secondary);
-  font-weight: 500;
-}
+/* Hero title removed — terminal handles the intro */
 
 .terminal {
   background: rgba(17, 17, 17, 0.95);
@@ -483,14 +450,6 @@
   .headshot {
     width: 64px;
     height: 64px;
-  }
-
-  .name {
-    font-size: 2.5rem;
-  }
-
-  .role {
-    font-size: 1.25rem;
   }
 
   .sectionHeader h2 {
