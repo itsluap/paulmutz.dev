@@ -99,7 +99,7 @@ export const terminalContent = {
   Languages: Python, JS/TS, Lua
   Frameworks: React, Next.js, Node.js, Firebase
   Industrial: Node-RED, MQTT, Victron, Grafana
-  Next:      CS degree (Fall 2026)
+  Next:      EE degree (Fall 2026)
   Coffee:    ████████████████████ 99%`,
 
   aboutTxt: `Software Developer & Systems Integrator at Alchemy Industrial.
@@ -110,7 +110,7 @@ Languages: Python, JavaScript/TypeScript, Lua
 Industrial: Node-RED, MQTT, Victron, Grafana
 Web: React, Next.js, Firebase, Node.js`,
 
-  educationTxt: `Heading to college this fall for Computer Science.
+  educationTxt: `Heading to college this fall for Electrical Engineering.
 Everything before that? Google, Stack Overflow, docs,
 and a lot of trial and error.
 
