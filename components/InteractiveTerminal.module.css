@@ -1,0 +1,329 @@
+/* Terminal Container */
+.terminal {
+  background: rgba(17, 17, 17, 0.95);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+  cursor: text;
+}
+
+.desktop {
+  border-radius: 8px;
+  margin-bottom: 3rem;
+}
+
+.mobile {
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 212, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* Header */
+.terminalHeader {
+  background: var(--color-bg-elevated);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  cursor: default;
+}
+
+.terminalDots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.terminalDots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-text-dim);
+}
+
+.terminalDots span:nth-child(1) { background: #ff5f56; }
+.terminalDots span:nth-child(2) { background: #ffbd2e; }
+.terminalDots span:nth-child(3) { background: #27c93f; }
+
+.terminalTitle {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  transition: opacity 0.4s ease;
+}
+
+/* Body */
+.terminalBody {
+  padding: 1.5rem;
+  max-height: 60vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 212, 255, 0.2) transparent;
+}
+
+.terminalBody::-webkit-scrollbar {
+  width: 4px;
+}
+
+.terminalBody::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.terminalBody::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.2);
+  border-radius: 2px;
+}
+
+/*
+  Intro blocks — all rendered on mount, revealed via CSS.
+  Only opacity + transform are animated (GPU composited).
+*/
+.introBlock {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: reveal 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  will-change: opacity, transform;
+}
+
+.phase1 { animation-delay: 0.3s; }
+.phase2 { animation-delay: 1.2s; }
+.phase3 { animation-delay: 2.1s; }
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.introLine {
+  margin: 0.5rem 0;
+  color: var(--color-text-secondary);
+}
+
+.introOutput {
+  margin: 0.5rem 0 1.25rem 1.5rem;
+}
+
+.prompt {
+  color: var(--color-primary);
+  margin-right: 0.5rem;
+  user-select: none;
+}
+
+/* Whoami output */
+.whoamiRow {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nameText {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.roleText {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.missionText {
+  color: var(--color-text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Cursor */
+.cursor {
+  animation: blink 1s step-end infinite;
+  color: var(--color-primary);
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Interactive history */
+.historyCommand {
+  margin: 0.75rem 0 0.25rem;
+  color: var(--color-text-secondary);
+  word-break: break-word;
+}
+
+.historyOutput {
+  margin: 0.25rem 0 0.75rem 0;
+  color: var(--color-text);
+}
+
+.outputPre {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.cyanText {
+  color: var(--color-primary);
+}
+
+/* Input line */
+.inputLine {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  color: var(--color-text-secondary);
+  gap: 0;
+  opacity: 0;
+  animation: reveal 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.inputWrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.inputMirror {
+  color: var(--color-text);
+  white-space: pre;
+}
+
+.hiddenInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  font-family: inherit;
+  font-size: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: transparent;
+  caret-color: transparent;
+}
+
+/* Hint text */
+.hintText {
+  margin-top: 1rem;
+  color: var(--color-text-secondary);
+  opacity: 0;
+  font-style: italic;
+  font-size: 0.9rem;
+  animation: reveal 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+}
+
+/* Mobile adjustments */
+.mobile .terminalHeader {
+  padding: 0.75rem 1rem;
+}
+
+.mobile .terminalDots span {
+  width: 10px;
+  height: 10px;
+}
+
+.mobile .terminalTitle {
+  font-size: 0.8rem;
+}
+
+.mobile .terminalBody {
+  padding: 1.5rem;
+  max-height: 50vh;
+}
+
+.mobile .nameText {
+  font-size: 2rem;
+}
+
+.mobile .introOutput {
+  margin-left: 1rem;
+}
+
+.mobile .roleText {
+  font-size: 1.25rem;
+}
+
+.mobile .missionText {
+  font-size: 0.95rem;
+}
+
+.mobile .prompt {
+  margin-right: 0.375rem;
+}
+
+/* Ensure mobile input is tappable */
+.mobile .hiddenInput {
+  opacity: 0;
+  font-size: 16px; /* Prevents iOS zoom on focus */
+}
+
+.mobile .inputLine {
+  font-size: 0.85rem;
+}
+
+.mobile .hintText {
+  font-size: 0.85rem;
+}
+
+/* Headshot in terminal (passed via slot) */
+.whoamiRow :global(img) {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 15%;
+  border: 2px solid rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .whoamiRow :global(img) {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .whoamiRow :global(img) {
+    width: 64px;
+    height: 64px;
+  }
+
+  .whoamiRow {
+    gap: 1rem;
+  }
+
+  .nameText {
+    font-size: 1.75rem;
+  }
+
+  .mobile .terminalBody {
+    padding: 1.25rem 0.875rem;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .introBlock,
+  .inputLine,
+  .hintText {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .cursor {
+    animation: none;
+    opacity: 1;
+  }
+}

@@ -5,83 +5,17 @@ import Image from 'next/image'
 import styles from './HorizontalScroll.module.css'
 import VantaBackground from './VantaBackground'
 import MobilePortfolio from './MobilePortfolio'
+import InteractiveTerminal from './InteractiveTerminal'
+import { codeSnippets, projects, siteLinks } from '../data/portfolio'
 
 const isMobile = () => {
   if (typeof window === 'undefined') return false
   return window.innerWidth <= 1024
 }
 
-const codeSnippets: Record<string, string> = {
-  victron: `# Victron Energy Systems
-def monitor_battery_state():
-    data = {
-        'voltage': read_victron_voltage(),
-        'current': read_victron_current(),
-        'soc': calculate_soc(),
-        'temp': read_temperature()
-    }
-    
-    mqtt_client.publish('bess/state', data)
-    optimize_charging(data)`,
-  react: `// Real-time hook with Firebase
-const useRealtimeData = (path) => {
-  const [data, setData] = useState(null)
-  
-  useEffect(() => {
-    const ref = database.ref(path)
-    ref.on('value', (snapshot) => {
-      setData(snapshot.val())
-    })
-    return () => ref.off()
-  }, [path])
-  
-  return data
-}`,
-  lua: `-- FiveM Server Framework
-local Framework = {}
-Framework.Players = {}
-
-function Framework:RegisterPlayer(source, data)
-    self.Players[source] = {
-        id = source,
-        name = data.name,
-        money = data.money or 0,
-        inventory = data.inventory or {}
-    }
-    TriggerClientEvent('framework:playerLoaded', source)
-end`
-}
-
-const projects = [
-  {
-    title: 'Victron Energy Systems',
-    year: '2024-Present',
-    description: 'Systems integration at Alchemy Industrial. Built custom 48V energy systems, BMS bridges, thermal control, and edge monitoring with Grafana dashboards.',
-    tech: ['Python', 'Node-RED', 'MQTT', 'Victron', 'Grafana'],
-    codeExample: 'victron'
-  },
-  {
-    title: 'Web Applications',
-    year: '2020-Present',
-    description: 'Full-stack web applications using modern frameworks. Real-time features, authentication systems, and cloud infrastructure.',
-    tech: ['React', 'Next.js', 'TypeScript', 'Firebase'],
-    codeExample: 'react'
-  },
-  {
-    title: 'FiveM Server Framework',
-    year: '2021-2023',
-    description: 'Built custom multiplayer game server infrastructure. Developed Lua scripting framework, economy systems, and admin tools.',
-    tech: ['Lua', 'JavaScript', 'Svelte', 'MySQL'],
-    codeExample: 'lua'
-  }
-]
-
 export default function HorizontalScroll() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [activeSection, setActiveSection] = useState(0)
-  const [typedText, setTypedText] = useState('')
-  const typewriterText = 'I build software that solves problems.'
-  // Check mobile immediately to prevent any desktop logic from running
   const [isMobileView, setIsMobileView] = useState(() => {
     if (typeof window !== 'undefined') {
       return window.innerWidth <= 1024
@@ -89,7 +23,6 @@ export default function HorizontalScroll() {
     return false
   })
 
-  // Check if mobile on mount and conditionally render
   useEffect(() => {
     const checkMobile = () => {
       const mobile = isMobile()
@@ -97,39 +30,36 @@ export default function HorizontalScroll() {
         setIsMobileView(mobile)
       }
     }
-    
-    // Check immediately on mount in case initial state was wrong
+
     checkMobile()
     window.addEventListener('resize', checkMobile)
-    
+
     return () => window.removeEventListener('resize', checkMobile)
   }, [isMobileView])
 
   // Desktop horizontal scroll effect
   useEffect(() => {
-    // Extra safety check - never run on mobile
     if (isMobileView || window.innerWidth <= 1024) return
 
     const handleScroll = () => {
       if (!containerRef.current) return
-      
+
       const scrolled = window.scrollY
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight
       const progress = scrolled / maxScroll
-      
+
       const totalSections = 6
       const currentSection = Math.floor(progress * totalSections)
       setActiveSection(currentSection)
-      
+
       const containerWidth = containerRef.current.scrollWidth
       const viewportWidth = window.innerWidth
       const maxTranslate = containerWidth - viewportWidth
       const translateX = -(progress * maxTranslate)
-      
+
       containerRef.current.style.transform = `translateX(${translateX}px)`
     }
 
-    // Only set body height on desktop
     if (containerRef.current && window.innerWidth > 1024) {
       const containerWidth = containerRef.current.scrollWidth
       document.body.style.height = `${containerWidth}px`
@@ -137,35 +67,15 @@ export default function HorizontalScroll() {
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      // Always clean up body height
       if (document.body.style.height) {
         document.body.style.height = ''
       }
     }
   }, [isMobileView])
 
-  // Typewriter effect
-  useEffect(() => {
-    if (isMobileView) return
-    if (activeSection !== 0) return
-
-    let index = 0
-    const interval = setInterval(() => {
-      if (index <= typewriterText.length) {
-        setTypedText(typewriterText.slice(0, index))
-        index++
-      } else {
-        clearInterval(interval)
-      }
-    }, 100)
-    
-    return () => clearInterval(interval)
-  }, [activeSection, typewriterText, isMobileView])
-
-  // Always render mobile portfolio, but hide with CSS on desktop for SSR compatibility
   return (
     <>
       <div className={styles.mobileOnly}>
@@ -183,49 +93,29 @@ export default function HorizontalScroll() {
       </div>
 
       <div ref={containerRef} className={styles.container}>
-        
+
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <div className={styles.terminal}>
-              <div className={styles.terminalHeader}>
-                <div className={styles.terminalDots}>
-                  <span></span><span></span><span></span>
-                </div>
-                <span className={styles.terminalTitle}>~/portfolio</span>
-              </div>
-              <div className={styles.terminalBody}>
-                <p className={styles.terminalLine}>
-                  <span className={styles.prompt}>$</span> whoami
-                </p>
-                <div className={styles.whoamiOutput}>
-                  <Image
-                    src="/paul_headshot.PNG"
-                    alt="Paul Mutz"
-                    width={100}
-                    height={100}
-                    className={styles.headshot}
-                  />
-                  <h1 className={styles.name}>Paul Mutz</h1>
-                </div>
-                <p className={styles.terminalLine}>
-                  <span className={styles.prompt}>$</span> cat role.txt
-                </p>
-                <div className={styles.title}>Developer & Systems Integrator</div>
-                <p className={styles.terminalLine}>
-                  <span className={styles.prompt}>$</span> echo $MISSION
-                </p>
-                <p className={styles.typewriter}>{typedText}<span className={styles.cursor}>_</span></p>
-              </div>
-            </div>
-            
+            <InteractiveTerminal
+              variant="desktop"
+              headshotSlot={
+                <Image
+                  src="/paul_headshot.PNG"
+                  alt="Paul Mutz"
+                  width={100}
+                  height={100}
+                />
+              }
+            />
+
             <div className={styles.links}>
-              <a href="https://github.com/itsluap" target="_blank" rel="noopener noreferrer">
+              <a href={siteLinks.github} target="_blank" rel="noopener noreferrer">
                 <span className={styles.linkIcon}>&lt;/&gt;</span> GitHub
               </a>
-              <a href="https://www.linkedin.com/in/paul-mutz-494859275" target="_blank" rel="noopener noreferrer">
+              <a href={siteLinks.linkedin} target="_blank" rel="noopener noreferrer">
                 <span className={styles.linkIcon}>in</span> LinkedIn
               </a>
-              <a href="mailto:paulmutzjr@icloud.com">
+              <a href={`mailto:${siteLinks.email}`}>
                 <span className={styles.linkIcon}>@</span> Email
               </a>
             </div>
@@ -252,11 +142,11 @@ export default function HorizontalScroll() {
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>4</span>
-                  I bridge software and hardware, build web applications, and
+                  I bridge software and hardware — energy systems,
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>5</span>
-                  solve problems with code that works in production.
+                  web apps, and whatever problem needs solving.
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>6</span>
@@ -283,7 +173,7 @@ export default function HorizontalScroll() {
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>12</span>
-                  {'  '}focus: <span className={styles.codeString}>'Building solutions that work'</span>
+                  {'  '}coffee: <span className={styles.codeString}>'mass amounts'</span>
                 </p>
                 <p className={styles.codeLine}>
                   <span className={styles.lineNumber}>13</span>
@@ -357,15 +247,15 @@ export default function HorizontalScroll() {
         <section className={styles.footer}>
           <div className={styles.footerContent}>
             <div className={styles.commandLine}>
-              <span className={styles.prompt}>$</span> 
+              <span className={styles.prompt}>$</span>
               <span className={styles.command}>git commit -m "</span>
               <span className={styles.gitMessage}>Let's build something together</span>
               <span className={styles.command}>"</span>
             </div>
             <div className={styles.footerLinks}>
-              <a href="https://github.com/itsluap" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a href="https://www.linkedin.com/in/paul-mutz-494859275" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a href="mailto:paulmutzjr@icloud.com">Email</a>
+              <a href={siteLinks.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href={siteLinks.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href={`mailto:${siteLinks.email}`}>Email</a>
             </div>
             <p className={styles.copyright}>© {new Date().getFullYear()} Paul Mutz</p>
           </div>

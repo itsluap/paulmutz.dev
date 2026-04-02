@@ -4,100 +4,20 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import styles from './MobilePortfolio.module.css'
 import MobileBackground from './MobileBackground'
-
-const codeSnippets: Record<string, string> = {
-  victron: `# Victron Energy Systems
-def monitor_battery_state():
-    data = {
-        'voltage': read_victron_voltage(),
-        'current': read_victron_current(),
-        'soc': calculate_soc(),
-        'temp': read_temperature()
-    }
-    
-    mqtt_client.publish('bess/state', data)
-    optimize_charging(data)`,
-  react: `// Real-time hook with Firebase
-const useRealtimeData = (path) => {
-  const [data, setData] = useState(null)
-  
-  useEffect(() => {
-    const ref = database.ref(path)
-    ref.on('value', (snapshot) => {
-      setData(snapshot.val())
-    })
-    return () => ref.off()
-  }, [path])
-  
-  return data
-}`,
-  lua: `-- FiveM Server Framework
-local Framework = {}
-Framework.Players = {}
-
-function Framework:RegisterPlayer(source, data)
-    self.Players[source] = {
-        id = source,
-        name = data.name,
-        money = data.money or 0,
-        inventory = data.inventory or {}
-    }
-    TriggerClientEvent('framework:playerLoaded', source)
-end`
-}
-
-const projects = [
-  {
-    title: 'Victron Energy Systems',
-    year: '2024-Present',
-    description: 'Systems integration at Alchemy Industrial. Built custom 48V energy systems, BMS bridges, thermal control, and edge monitoring with Grafana dashboards.',
-    tech: ['Python', 'Node-RED', 'MQTT', 'Victron', 'Grafana'],
-    codeExample: 'victron'
-  },
-  {
-    title: 'Web Applications',
-    year: '2020-Present',
-    description: 'Full-stack web applications using modern frameworks. Real-time features, authentication systems, and cloud infrastructure.',
-    tech: ['React', 'Next.js', 'TypeScript', 'Firebase'],
-    codeExample: 'react'
-  },
-  {
-    title: 'FiveM Server Framework',
-    year: '2021-2023',
-    description: 'Built custom multiplayer game server infrastructure. Developed Lua scripting framework, economy systems, and admin tools.',
-    tech: ['Lua', 'JavaScript', 'Svelte', 'MySQL'],
-    codeExample: 'lua'
-  }
-]
+import InteractiveTerminal from './InteractiveTerminal'
+import { codeSnippets, projects, siteLinks } from '../data/portfolio'
 
 export default function MobilePortfolio() {
-  const [typedText, setTypedText] = useState('')
   const [scrollProgress, setScrollProgress] = useState(0)
   const [activeSection, setActiveSection] = useState('hero')
-  const typewriterText = 'I build software that solves problems.'
-  
+
   const heroRef = useRef<HTMLElement>(null)
   const aboutRef = useRef<HTMLElement>(null)
   const projectsHeaderRef = useRef<HTMLDivElement>(null)
   const projectRefs = useRef<(HTMLElement | null)[]>([])
   const footerRef = useRef<HTMLElement>(null)
 
-  // Typewriter effect
-  useEffect(() => {
-    let index = 0
-    const interval = setInterval(() => {
-      if (index <= typewriterText.length) {
-        setTypedText(typewriterText.slice(0, index))
-        index++
-      } else {
-        clearInterval(interval)
-      }
-    }, 100)
-    
-    return () => clearInterval(interval)
-  }, [])
-
-  // Scroll progress tracker - use requestAnimationFrame for better performance
+  // Scroll progress tracker
   useEffect(() => {
     let ticking = false
 
@@ -110,7 +30,6 @@ export default function MobilePortfolio() {
           const progress = (scrollTop / (documentHeight - windowHeight)) * 100
           setScrollProgress(progress)
 
-          // Determine active section
           const sections = [
             { id: 'hero', ref: heroRef },
             { id: 'about', ref: aboutRef },
@@ -133,9 +52,8 @@ export default function MobilePortfolio() {
       }
     }
 
-    // Add scroll listener immediately
     window.addEventListener('scroll', handleScroll, { passive: true })
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
@@ -171,11 +89,11 @@ export default function MobilePortfolio() {
   return (
     <div className={styles.wrapper}>
       <MobileBackground />
-      
+
       {/* Scroll Progress Bar */}
       <div className={styles.progressBar}>
-        <div 
-          className={styles.progressFill} 
+        <div
+          className={styles.progressFill}
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
@@ -187,50 +105,35 @@ export default function MobilePortfolio() {
             <h1 className={styles.name}>Paul Mutz</h1>
             <div className={styles.role}>Developer</div>
           </div>
-          
-          <div className={styles.terminal}>
-            <div className={styles.terminalHeader}>
-              <div className={styles.terminalDots}>
-                <span></span><span></span><span></span>
-              </div>
-              <span className={styles.terminalTitle}>terminal</span>
-            </div>
-            <div className={styles.terminalBody}>
-              <div className={styles.headshotWrapper}>
-                <Image
-                  src="/paul_headshot.PNG"
-                  alt="Paul Mutz"
-                  width={80}
-                  height={80}
-                  className={styles.headshot}
-                />
-              </div>
-              <p className={styles.terminalLine}>
-                <span className={styles.prompt}>$</span> echo $MISSION
-              </p>
-              <p className={styles.typewriter}>
-                {typedText}
-                <span className={styles.cursor}>_</span>
-              </p>
-            </div>
-          </div>
-          
+
+          <InteractiveTerminal
+            variant="mobile"
+            headshotSlot={
+              <Image
+                src="/paul_headshot.PNG"
+                alt="Paul Mutz"
+                width={80}
+                height={80}
+              />
+            }
+          />
+
           <div className={styles.links}>
-            <a href="https://github.com/itsluap" target="_blank" rel="noopener noreferrer" className={styles.linkCard}>
+            <a href={siteLinks.github} target="_blank" rel="noopener noreferrer" className={styles.linkCard}>
               <span className={styles.linkIcon}>&lt;/&gt;</span>
               <div>
                 <div className={styles.linkTitle}>GitHub</div>
                 <div className={styles.linkDesc}>View my code</div>
               </div>
             </a>
-            <a href="https://www.linkedin.com/in/paul-mutz-494859275" target="_blank" rel="noopener noreferrer" className={styles.linkCard}>
+            <a href={siteLinks.linkedin} target="_blank" rel="noopener noreferrer" className={styles.linkCard}>
               <span className={styles.linkIcon}>in</span>
               <div>
                 <div className={styles.linkTitle}>LinkedIn</div>
                 <div className={styles.linkDesc}>Connect with me</div>
               </div>
             </a>
-            <a href="mailto:paulmutzjr@icloud.com" className={styles.linkCard}>
+            <a href={`mailto:${siteLinks.email}`} className={styles.linkCard}>
               <span className={styles.linkIcon}>@</span>
               <div>
                 <div className={styles.linkTitle}>Email</div>
@@ -251,8 +154,16 @@ export default function MobilePortfolio() {
           <div className={styles.cardGlow}></div>
           <div className={styles.aboutText}>
             <p>Software Developer & Systems Integrator at Alchemy Industrial.</p>
-            <p>I bridge software and hardware through energy systems integration, build full-stack web applications, and have experience with complex server infrastructure.</p>
+            <p>I bridge software and hardware — energy systems, web apps, and whatever problem needs solving next.</p>
           </div>
+        </div>
+
+        <div className={styles.statsBar}>
+          <div className={styles.stat}><span className={styles.statValue}>5</span><span className={styles.statLabel}>Languages</span></div>
+          <div className={styles.statDivider}></div>
+          <div className={styles.stat}><span className={styles.statValue}>∞</span><span className={styles.statLabel}>Projects</span></div>
+          <div className={styles.statDivider}></div>
+          <div className={styles.stat}><span className={styles.statValue}>∞</span><span className={styles.statLabel}>Coffee</span></div>
         </div>
 
         <div className={styles.skillsGrid}>
@@ -294,8 +205,8 @@ export default function MobilePortfolio() {
         </div>
 
         {projects.map((project, index) => (
-          <section 
-            key={index} 
+          <section
+            key={index}
             ref={(el) => { projectRefs.current[index] = el }}
             className={`${styles.project} ${styles.animate}`}
           >
@@ -307,9 +218,9 @@ export default function MobilePortfolio() {
                   <span className={styles.projectYear}>{project.year}</span>
                 </div>
               </div>
-              
+
               <p className={styles.projectDescription}>{project.description}</p>
-              
+
               <div className={styles.techStack}>
                 {project.tech.map((tech) => (
                   <span key={tech} className={styles.techTag}>{tech}</span>
@@ -337,8 +248,8 @@ export default function MobilePortfolio() {
               <div className={styles.codePreview}>
                 <div className={styles.codeHeader}>
                   <span className={styles.fileName}>
-                    {project.codeExample === 'victron' ? 'victron_monitor.py' : 
-                     project.codeExample === 'react' ? 'useRealtimeData.js' : 
+                    {project.codeExample === 'victron' ? 'victron_monitor.py' :
+                     project.codeExample === 'react' ? 'useRealtimeData.js' :
                      'framework.lua'}
                   </span>
                 </div>
@@ -359,22 +270,22 @@ export default function MobilePortfolio() {
           </div>
 
           <div className={styles.commandLine}>
-            <span className={styles.prompt}>$</span> 
+            <span className={styles.prompt}>$</span>
             <span className={styles.command}>git commit -m "</span>
             <span className={styles.gitMessage}>Let's build something together</span>
             <span className={styles.command}>"</span>
           </div>
 
           <div className={styles.contactLinks}>
-            <a href="https://github.com/itsluap" target="_blank" rel="noopener noreferrer">
+            <a href={siteLinks.github} target="_blank" rel="noopener noreferrer">
               <span>&lt;/&gt;</span>
               GitHub
             </a>
-            <a href="https://www.linkedin.com/in/paul-mutz-494859275" target="_blank" rel="noopener noreferrer">
+            <a href={siteLinks.linkedin} target="_blank" rel="noopener noreferrer">
               <span>in</span>
               LinkedIn
             </a>
-            <a href="mailto:paulmutzjr@icloud.com">
+            <a href={`mailto:${siteLinks.email}`}>
               <span>@</span>
               Email
             </a>
