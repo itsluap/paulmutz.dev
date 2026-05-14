@@ -88,15 +88,51 @@ export const viewport: Viewport = {
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': `${siteUrl}/#paul-mutz`,
   name: 'Paul Mutz',
+  givenName: 'Paul',
+  familyName: 'Mutz',
+  alternateName: ['paulmutz', 'itsluap'],
   url: siteUrl,
+  mainEntityOfPage: siteUrl,
   image: `${siteUrl}/paul_headshot.PNG`,
   jobTitle: 'Developer & Systems Integrator',
+  email: 'mailto:pmutz@alchemyindustrial.com',
   worksFor: {
     '@type': 'Organization',
     name: 'Alchemy Industrial',
+    url: 'https://alchemyindustrial.com',
   },
-  knowsAbout: ['Python', 'Lua', 'React', 'Next.js', 'Energy Systems', 'Victron'],
+  knowsAbout: [
+    'Software Development',
+    'Systems Integration',
+    'Python',
+    'Lua',
+    'React',
+    'Next.js',
+    'Firebase',
+    'Energy Systems',
+    'Victron Energy',
+    'Battery Energy Storage Systems',
+    'MQTT',
+  ],
+  sameAs: [
+    'https://www.linkedin.com/in/paul-mutz-494859275',
+    'https://github.com/itsluap',
+    'https://alchemyindustrial.com',
+  ],
+}
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
+  url: siteUrl,
+  name: 'Paul Mutz',
+  description:
+    'Personal site of Paul Mutz — developer and systems integrator at Alchemy Industrial.',
+  publisher: { '@id': `${siteUrl}/#paul-mutz` },
+  inLanguage: 'en-US',
 }
 
 export default function RootLayout({
@@ -110,6 +146,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body>{children}</body>
