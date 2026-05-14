@@ -1,9 +1,70 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
+const siteUrl = 'https://paulmutz.dev'
+
 export const metadata: Metadata = {
-  title: 'Paul Mutz | Developer',
-  description: 'Developer building functional software with Python, Lua, React, and Next.js',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'Paul Mutz | Developer & Systems Integrator',
+    template: '%s | Paul Mutz',
+  },
+  description:
+    'Paul Mutz — developer and systems integrator at Alchemy Industrial. Building functional software with Python, Lua, React, and Next.js.',
+  keywords: [
+    'Paul Mutz',
+    'paulmutz',
+    'Alchemy Industrial',
+    'developer',
+    'systems integrator',
+    'Python',
+    'Lua',
+    'React',
+    'Next.js',
+    'Victron',
+    'energy systems',
+  ],
+  authors: [{ name: 'Paul Mutz', url: siteUrl }],
+  creator: 'Paul Mutz',
+  publisher: 'Paul Mutz',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    url: siteUrl,
+    siteName: 'Paul Mutz',
+    title: 'Paul Mutz | Developer & Systems Integrator',
+    description:
+      'Developer and systems integrator. Python, Lua, React, Next.js, and energy systems.',
+    images: [
+      {
+        url: '/paul_headshot.PNG',
+        width: 800,
+        height: 800,
+        alt: 'Paul Mutz',
+      },
+    ],
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Paul Mutz | Developer & Systems Integrator',
+    description:
+      'Developer and systems integrator. Python, Lua, React, Next.js, and energy systems.',
+    images: ['/paul_headshot.PNG'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   icons: {
     icon: [
       { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
@@ -24,6 +85,20 @@ export const viewport: Viewport = {
   userScalable: true,
 }
 
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Paul Mutz',
+  url: siteUrl,
+  image: `${siteUrl}/paul_headshot.PNG`,
+  jobTitle: 'Developer & Systems Integrator',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Alchemy Industrial',
+  },
+  knowsAbout: ['Python', 'Lua', 'React', 'Next.js', 'Energy Systems', 'Victron'],
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -31,6 +106,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   )
